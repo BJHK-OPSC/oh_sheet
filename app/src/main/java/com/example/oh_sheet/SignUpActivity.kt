@@ -32,7 +32,7 @@ class SignUpActivity : AppCompatActivity() {
             val password = registerPasswordEditText.text.toString()
             val confirmPassword = registerConfirmPasswordEditText.text.toString()
 
-            when (val validationResult = isValidRegistration(username, password, confirmPassword)) {
+            when (isValidRegistration(username, password, confirmPassword)) {
                 RegistrationValidationResult.SUCCESS -> {
                     // Pass the registered credentials back to MainActivity
                     val intent = Intent()
@@ -40,6 +40,9 @@ class SignUpActivity : AppCompatActivity() {
                     intent.putExtra("password", password)
                     setResult(Activity.RESULT_OK, intent)
                     finish()
+
+                    val signInIntent = Intent(this, SignInActivity::class.java)
+                    startActivity(signInIntent)
                 }
                 RegistrationValidationResult.PASSWORDS_DONT_MATCH -> {
                     registerConfirmPasswordEditText.error = "Passwords do not match"
