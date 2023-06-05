@@ -49,7 +49,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/addPhotoButton"
             android:layout_width="180dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -135,7 +135,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/createEntryButton"
             android:layout_width="180dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
