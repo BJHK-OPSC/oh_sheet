@@ -29,6 +29,11 @@
     <string name="all_done_label">All Done :)</string>
     <string name="sheets_label">Sheets</string>
     <string name="active_label">Active:  </string>
+    <string name="non_active_label">Non Active: </string>
+    <string name="menu_username_label">\@username</string>
+    <string name="help_btn_label">HELP!!!</string>
+    <string name="sign_out_btn_label">Sign Out</string>
+    <string name="FAQ_label">FAQs</string>
 
 
     <string-array name="Timesheet_categories">
