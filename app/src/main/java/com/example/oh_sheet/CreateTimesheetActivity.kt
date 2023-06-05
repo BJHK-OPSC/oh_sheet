@@ -13,7 +13,7 @@ import com.example.oh_sheet.databinding.ActivityCreateTimesheetBinding
 data class Category(val name: String)
 //list of timesheet entries\\
 //should be accessible from anywhere\\
-val timesheetEntries: MutableList<TimesheetEntry> = mutableListOf()
+val timesheetEntries: ArrayList<TimesheetEntry> = ArrayList()
 
 data class TimesheetEntry(
     val date: String,
