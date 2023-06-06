@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 
@@ -31,6 +28,7 @@ data class TimesheetEntry(
 class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
     var selectedCategory: String? = null
+    val categoryNames = listOf("Work", "Study", "Exercise")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,10 +65,13 @@ class CreateTimesheetActivity : AppCompatActivity() {
         // Button click listener to create a new timesheet entry
         createEntryButton.setOnClickListener {
             val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            categorySpinner.adapter = adapter
             categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     // Get the selected category
-                    selectedCategory = parent?.getItemAtPosition(position) as? String
+                    selectedCategory = categoryNames[position]
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
