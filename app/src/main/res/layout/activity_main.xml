@@ -53,7 +53,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/createTimeS_button"
+                android:id="@+id/createTimesheet_button"
                 android:layout_width="190dp"
                 android:layout_height="110dp"
                 android:layout_gravity="center"
@@ -68,7 +68,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/manageTimeS_button"
+                android:id="@+id/manageTimesheet_button"
                 android:layout_width="190dp"
                 android:layout_height="110dp"
                 android:layout_gravity="center"
@@ -84,7 +84,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/Statistics_button"
+                android:id="@+id/statistics_button"
                 android:layout_width="190dp"
                 android:layout_height="110dp"
                 android:layout_gravity="center"
