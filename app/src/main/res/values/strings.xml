@@ -40,6 +40,7 @@
     <string name="help_btn_label">HELP!!!!!</string>
     <string name="sign_out_btn_label">Sign Out</string>
     <string name="menu_username_label">\@Username</string>
+    <string name="FAQ_label">FAQs</string>
 
 
     <string-array name="Timesheet_categories">
