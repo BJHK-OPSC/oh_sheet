@@ -11,10 +11,9 @@ class TableRowC(val Description: String, val Start: String, val End: String, val
     // Add properties for other columns as needed
 }
 
-class TableAdapter(private var data: ArrayList<TableRowC>) :
-    RecyclerView.Adapter<TableAdapter.ViewHolder>() {
+class TableAdapter(private var data: ArrayList<TableRowC>) : RecyclerView.Adapter<TableAdapter.ViewHolder>() {
 
-
+    //------------------------------------------------------------------------------------------------\\
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val column1TextView: TextView = itemView.findViewById(R.id.textDescripiton)
         val column2TextView: TextView = itemView.findViewById(R.id.textStartDate)
@@ -23,11 +22,13 @@ class TableAdapter(private var data: ArrayList<TableRowC>) :
         // Add references to other TextViews for additional columns
     }
 
+    //------------------------------------------------------------------------------------------------\\
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.table_row_item, parent, false)
         return ViewHolder(itemView)
     }
 
+    //------------------------------------------------------------------------------------------------\\
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentRow = data[position]
         holder.column1TextView.text = currentRow.Description
@@ -36,8 +37,10 @@ class TableAdapter(private var data: ArrayList<TableRowC>) :
         holder.column4TextView.text = currentRow.Categories
     }
 
+    //------------------------------------------------------------------------------------------------\\
     override fun getItemCount(): Int {
         return data.size
     }
 
 }
+//------------------------------------------End of File------------------------------------------------------\\
