@@ -27,7 +27,6 @@ data class TimesheetEntry(
 class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateTimesheetBinding
     private lateinit var bindingTimesheet2Binding: ActivityCreateTimesheet2Binding
-
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
 
 
@@ -35,6 +34,11 @@ class CreateTimesheetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateTimesheetBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        bindingTimesheet2Binding = ActivityCreateTimesheet2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+
 
         photoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
