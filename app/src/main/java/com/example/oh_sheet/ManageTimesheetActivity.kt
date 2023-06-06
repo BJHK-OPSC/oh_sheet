@@ -31,7 +31,7 @@ class ManageTimesheetActivity : AppCompatActivity() {
 
     //------------------------------------------------------------------------------------------------\\
     private fun setupRecyclerView() {
-        val data = createSampleData() // Replace with your own ArrayList
+        val data = createSampleData()
         val adapter = TableAdapter(data)
 
         recyclerView.adapter = adapter
@@ -45,14 +45,24 @@ class ManageTimesheetActivity : AppCompatActivity() {
         val data = ArrayList<TableRowC>()
 
         //im assuming these become the column headings
-        data.add(TableRowC("Description", "Start Date", "End Date", "Categories"))
+        data.add(TableRowC("Description", "Start Date","Start Time", "End Time", "Categories"))
 
 
         val array: ArrayList<CreateTimesheetActivity.TimesheetEntry> = obj.timesheetEntries
         //put Daniel H data into the values in " ... "
 
+        for(i in array.indices){
+            val val1: String = array.get(i).category.toString()// category
+            val val2: String = array.get(i).date.toString() //date
+            val val3: String = array.get(i).description.toString() //description
+            val val4: String = array.get(i).endTime.toString() //end time
+            val val5: String = array.get(i).startTime.toString() //start time
+            val val6: String = array.get(i).photoPath.toString() //photo
 
-        data.add(TableRowC("Value 1", "Value 2","Value 3", "Value 4"))
+            data.add(TableRowC(val3, val2, val5,val4, val1))
+        }
+
+        data.add(TableRowC("Value 1", "Value 2","Value 3", "Value 4", "value5"))
         // Add more data rows as needed
 
         return data

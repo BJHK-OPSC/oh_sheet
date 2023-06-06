@@ -7,7 +7,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TableRowC(val Description: String, val Start: String, val End: String, val Categories: String) {
+class TableRowC(val Description: String, val Date: String, val Start: String, val End: String, val Categories: String) {
     // Add properties for other columns as needed
 }
 
@@ -16,6 +16,7 @@ class TableAdapter(private var data: ArrayList<TableRowC>) : RecyclerView.Adapte
     //------------------------------------------------------------------------------------------------\\
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val column1TextView: TextView = itemView.findViewById(R.id.textDescripiton)
+        val column6TextView: TextView = itemView.findViewById(R.id.textStartDateReal)
         val column2TextView: TextView = itemView.findViewById(R.id.textStartDate)
         val column3TextView: TextView = itemView.findViewById(R.id.textEndDate)
         val column4TextView: TextView = itemView.findViewById(R.id.textCategories)
@@ -32,6 +33,7 @@ class TableAdapter(private var data: ArrayList<TableRowC>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentRow = data[position]
         holder.column1TextView.text = currentRow.Description
+        holder.column6TextView.text = currentRow.Date
         holder.column2TextView.text = currentRow.Start
         holder.column3TextView.text = currentRow.End
         holder.column4TextView.text = currentRow.Categories

@@ -30,13 +30,14 @@ class SetGoals : AppCompatActivity(), View.OnClickListener {
     //------------------------------------------------------------------------------------------------\\
     //this method will run when the setGoals2 closes
     //setGoals2 returns min, max, name using intents
-    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    //@Override
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                val str1 = data.getStringExtra("name")
-                val str2 = data.getStringExtra("min")
-                val str3 = data.getStringExtra("max")
+                val str1 = data?.getStringExtra("name")
+                val str2 = data?.getStringExtra("min")
+                val str3 = data?.getStringExtra("max")
 
                 textView1.setText(str1)
                 textView2.setText(str2)
