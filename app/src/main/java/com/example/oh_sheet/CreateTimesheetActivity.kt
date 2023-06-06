@@ -36,7 +36,6 @@ class CreateTimesheetActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         bindingTimesheet2Binding = ActivityCreateTimesheet2Binding.inflate(layoutInflater)
-        setContentView(binding.root)
 
 
 
