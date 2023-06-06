@@ -90,6 +90,8 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
     //  this new set of data comes from the 3rd class
     //  new set of data = new table
     //  i despise working with dates
+
+    //also disabled it cos i felt that 3 methods happening on the onClcik was a bit too much
     //------------------------------------------------------------------------------------------------\\
     override fun onClick(v: View?) {
 
