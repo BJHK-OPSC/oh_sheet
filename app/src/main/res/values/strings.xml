@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Oh_sheet</string>
+    <string name="app_name">Oh Sheet</string>
     <string name="Home_label">Home</string>
     <string name="create_timesheet_btn">Create a Timesheet</string>
     <string name="manage_timesheet_btn">Manage a Timesheet</string>
