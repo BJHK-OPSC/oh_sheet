@@ -28,7 +28,8 @@
             android:exported="false" />
         <activity
             android:name=".CreateTimesheetActivity"
-            android:exported="false" />
+            android:exported="true"/>
+
         <activity
             android:name=".VerifyActivity"
             android:exported="false" />
