@@ -37,6 +37,9 @@
     <string name="save_label">Save</string>
     <string name="new_goal_label">New Goal</string>
     <string name="time_comin_soon_label">Time (Comin Soon)</string>
+    <string name="help_btn_label">HELP!!!!!</string>
+    <string name="sign_out_btn_label">Sign Out</string>
+    <string name="menu_username_label">\@Username</string>
 
 
     <string-array name="Timesheet_categories">
