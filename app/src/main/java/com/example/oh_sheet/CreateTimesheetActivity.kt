@@ -1,7 +1,6 @@
 package com.example.oh_sheet
 
 import android.app.Activity
-import com.example.oh_sheet.CreateTimesheetActivity2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -12,8 +11,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.oh_sheet.databinding.ActivityCreateTimesheet2Binding
-import com.example.oh_sheet.databinding.ActivityCreateTimesheetBinding
+
 
 
 data class Category(val name: String)
@@ -55,7 +53,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
                 }
             }
         }
-
+        //------------------------------------------------------------------------------------------------\\
         // Button click listener to add a photograph
         addPhotoButton.setOnClickListener {
             // Open camera or gallery to select a photo
@@ -65,7 +63,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
             intent.type = "image/*"
             photoLauncher.launch(intent)
         }
-
+        //------------------------------------------------------------------------------------------------\\
         // Button click listener to create a new timesheet entry
         createEntryButton.setOnClickListener {
             val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
@@ -73,7 +71,6 @@ class CreateTimesheetActivity : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     // Get the selected category
                     selectedCategory = parent?.getItemAtPosition(position) as? String
-
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -81,17 +78,19 @@ class CreateTimesheetActivity : AppCompatActivity() {
                     selectedCategory = null
                 }
             }
+
             val date = findViewById<EditText>(R.id.dateEditText).text.toString()
             val startTime = findViewById<EditText>(R.id.startTimeEditText).text.toString()
             val endTime = findViewById<EditText>(R.id.endTimeEditText).text.toString()
             val description = findViewById<EditText>(R.id.descriptionEditText).text.toString()
-            val selectedCategory = categorySpinner.selectedItem.toString()
-            val category = Category(selectedCategory)
+            val category = Category(selectedCategory ?: "")
+
             val entry = TimesheetEntry(date, startTime, endTime, description, category)
             timesheetEntries.add(entry)
 
             clearInputFields()
         }
+
     }
 
 
