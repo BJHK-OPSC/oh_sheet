@@ -13,14 +13,14 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton6"
+            android:id="@+id/bbGoals"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/white"
             app:tint="@color/purple_200"
             app:srcCompat="?attr/actionModeCloseDrawable"
-            android:onClick="onClick"/>
+            />
 
         <TextView
             android:id="@+id/textView4"

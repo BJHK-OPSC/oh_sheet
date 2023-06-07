@@ -31,5 +31,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        val setGoalsButton: Button = findViewById(R.id.set_goals_btn)
+        statisticsButton.setOnClickListener {
+            val intent = Intent(this, SetGoals::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

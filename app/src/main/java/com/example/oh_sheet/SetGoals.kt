@@ -1,8 +1,10 @@
 package com.example.oh_sheet
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -15,9 +17,11 @@ class SetGoals : AppCompatActivity(), View.OnClickListener {
     var textView3 = findViewById<TextView>(R.id.txtMaxGoal)
 
     //------------------------------------------------------------------------------------------------\\
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_goals)
+
     }
 
     //------------------------------------------------------------------------------------------------\\
