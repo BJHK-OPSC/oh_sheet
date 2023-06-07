@@ -37,8 +37,8 @@ class CreateTimesheetActivity : AppCompatActivity() {
 
 
 
-        val addPhotoButton = findViewById<Button>(R.id.addPhotoButton2)
-        val createEntryButton = findViewById<Button>(R.id.createEntryButton2)
+        val addPhotoButton = findViewById<Button>(R.id.addPhotoButton)
+        val createEntryButton = findViewById<Button>(R.id.createEntryButton)
 
         photoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {

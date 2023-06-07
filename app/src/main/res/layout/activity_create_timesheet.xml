@@ -68,7 +68,7 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"
-                    android:text="@string/create_timesheet_descrip_label"
+                    android:hint="@string/create_timesheet_descrip_label"
                     android:textColor="@color/purple_200"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -121,7 +121,7 @@
                     android:clickable="false"
                     android:ems="10"
                     android:inputType="date"
-                    android:text="@string/date_label"
+                    android:hint="@string/date_label"
                     android:textColor="@color/purple_200"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -144,7 +144,7 @@
                     android:layout_gravity="center"
                     android:ems="10"
                     android:inputType="time"
-                    android:text="@string/start_time_label"
+                    android:hint="@string/start_time_label"
                     android:textColor="@color/purple_200"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -167,7 +167,7 @@
                     android:layout_gravity="center"
                     android:ems="10"
                     android:inputType="time"
-                    android:text="@string/end_time_label"
+                    android:hint="@string/end_time_label"
                     android:textColor="@color/purple_200"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -184,7 +184,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/addPhotoButton2"
+                    android:id="@+id/addPhotoButton"
                     android:layout_width="180dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -204,7 +204,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/createEntryButton2"
+                    android:id="@+id/createEntryButton"
                     android:layout_width="180dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
