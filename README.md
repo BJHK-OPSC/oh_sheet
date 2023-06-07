@@ -1,5 +1,5 @@
 # oh_sheet
-A Timesheet application developed for a University project.
+OPSC POE - Timesheet application 
 
 Group -  st10082120(group leader), st10082201, st10082256, st10082240
 
