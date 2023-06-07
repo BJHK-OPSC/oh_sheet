@@ -3,8 +3,10 @@ package com.example.oh_sheet
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +43,13 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         recyclerView = findViewById(R.id.recyclerView)
         setupRecyclerView()
+
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     //------------------------------------------------------------------------------------------------\\
@@ -62,7 +71,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         data.add(TableRowC("Description", "Start Date","Start Time", "End Time", "Categories"))
 
         //these are the values that populate the table
-        data.add(TableRowC("Value 1", "Value 2","Value 3", "Value 4", "value 5"))
+        //data.add(TableRowC("Value 1", "Value 2","Value 3", "Value 4", "value 5"))
 
         val array: ArrayList<TimesheetEntry> = ArrayList()
 
