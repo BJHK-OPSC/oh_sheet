@@ -7,10 +7,6 @@ android {
     namespace 'com.example.oh_sheet'
     compileSdk 33
 
-    viewBinding {
-        enabled = true
-    }
-
     defaultConfig {
         applicationId "com.example.oh_sheet"
         minSdk 31
