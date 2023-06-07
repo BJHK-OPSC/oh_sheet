@@ -1,14 +1,12 @@
 package com.example.oh_sheet
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,23 +40,6 @@ class StatisticsActivity : AppCompatActivity() {
         endDateButton = findViewById(R.id.endDateButton)
 
         setupDatePickers()
-
-        val date = "2002-01-24"
-        val startTime = "13:00"
-        val endTime = "15:00"
-        val description = "Work thing"
-        val category = Category("Work")
-        val entry =
-            TimesheetEntry(date, startTime, endTime, description, category)
-        timesheetEntries.add(entry)
-        val date2 = "2002-01-30"
-        val startTime2 = "12:00"
-        val endTime2 = "15:00"
-        val description2 = "Work thing 2"
-        val category2 = Category("Work 2")
-        val entry2 = TimesheetEntry(date2, startTime2, endTime2, description2, category2)
-        timesheetEntries.add(entry2)
-
         populateRecycleView()
 
     }
@@ -112,6 +93,13 @@ class StatisticsActivity : AppCompatActivity() {
         val adapter = CategoryAdapter(categoryList)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setupDatePickers() {

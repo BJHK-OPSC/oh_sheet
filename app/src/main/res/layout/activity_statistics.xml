@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/statistics_btn_back"
+            android:id="@+id/backButton"
             android:layout_width="120dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
