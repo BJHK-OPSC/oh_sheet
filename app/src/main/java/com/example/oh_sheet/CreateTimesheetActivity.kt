@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+
 
 
 data class Category(val name: String)
@@ -30,6 +28,7 @@ data class TimesheetEntry(
 class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
     var selectedCategory: String? = null
+    val categoryNames = listOf("Work", "Study", "Exercise")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +36,8 @@ class CreateTimesheetActivity : AppCompatActivity() {
 
 
 
-        val addPhotoButton = findViewById<Button>(R.id.addPhotoButton2)
-        val createEntryButton = findViewById<Button>(R.id.createEntryButton2)
+        val addPhotoButton = findViewById<Button>(R.id.addPhotoButton)
+        val createEntryButton = findViewById<Button>(R.id.createEntryButton)
 
         photoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -52,7 +51,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
                 }
             }
         }
-
+        //------------------------------------------------------------------------------------------------\\
         // Button click listener to add a photograph
         addPhotoButton.setOnClickListener {
             // Open camera or gallery to select a photo
@@ -62,15 +61,17 @@ class CreateTimesheetActivity : AppCompatActivity() {
             intent.type = "image/*"
             photoLauncher.launch(intent)
         }
-
+        //------------------------------------------------------------------------------------------------\\
         // Button click listener to create a new timesheet entry
         createEntryButton.setOnClickListener {
             val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            categorySpinner.adapter = adapter
             categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     // Get the selected category
-                    selectedCategory = parent?.getItemAtPosition(position) as? String
-
+                    selectedCategory = categoryNames[position]
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -78,17 +79,19 @@ class CreateTimesheetActivity : AppCompatActivity() {
                     selectedCategory = null
                 }
             }
+
             val date = findViewById<EditText>(R.id.dateEditText).text.toString()
             val startTime = findViewById<EditText>(R.id.startTimeEditText).text.toString()
             val endTime = findViewById<EditText>(R.id.endTimeEditText).text.toString()
             val description = findViewById<EditText>(R.id.descriptionEditText).text.toString()
-            val selectedCategory = categorySpinner.selectedItem.toString()
-            val category = Category(selectedCategory)
+            val category = Category(selectedCategory ?: "")
+
             val entry = TimesheetEntry(date, startTime, endTime, description, category)
             timesheetEntries.add(entry)
 
             clearInputFields()
         }
+
     }
 
 
