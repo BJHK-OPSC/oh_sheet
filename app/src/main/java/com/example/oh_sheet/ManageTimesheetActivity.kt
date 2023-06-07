@@ -71,7 +71,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         data.add(TableRowC("Description", "Start Date","Start Time", "End Time", "Categories"))
 
         val line: String = "------------"
-        //these are the values that populate the table
+        //create line
         data.add(TableRowC(line, line,line, line, line))
 
         val array: ArrayList<TimesheetEntry> = ArrayList()
