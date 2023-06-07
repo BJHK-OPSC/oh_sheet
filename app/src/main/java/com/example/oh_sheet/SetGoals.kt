@@ -23,8 +23,8 @@ class SetGoals : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_goals)
 
-        /*val setGoalsButton: Button = findViewById(R.id.set_goals_btn)
-        statisticsButton.setOnClickListener {
+        /*val setGoalsButton: Button = findViewById(R.id.buttonNewGoal)
+        setGoalsButton.setOnClickListener {
             val intent = Intent(this, SetGoals::class.java)
             startActivity(intent)
             finish()

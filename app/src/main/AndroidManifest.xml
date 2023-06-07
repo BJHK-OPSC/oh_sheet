@@ -55,11 +55,11 @@
 
         <activity
             android:name=".SetGoals"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".SetGoalsAcitivity2"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>
