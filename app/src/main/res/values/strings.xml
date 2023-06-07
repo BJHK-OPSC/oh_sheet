@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Oh_sheet</string>
+    <string name="app_name">Oh Sheet</string>
     <string name="Home_label">Home</string>
     <string name="create_timesheet_btn">Create a Timesheet</string>
     <string name="manage_timesheet_btn">Manage a Timesheet</string>
@@ -23,17 +23,28 @@
     <string name="start_time_label">Start Time</string>
     <string name="end_time_label">End Time</string>
     <string name="capture_photo_label">Capture Photo</string>
+
     <string name="minimum_time_goal_label">Minimum Time Goal</string>
     <string name="maximum_time_goal_label">Maximum Time Goal</string>
+    <string name="name_time_goal_label">Time Goal Name</string>
+
     <string name="receive_our_smart_label">Receive our SmartNotifications</string>
     <string name="all_done_label">All Done :)</string>
     <string name="sheets_label">Sheets</string>
     <string name="active_label">Active:  </string>
-    <string name="non_active_label">Non Active: </string>
-    <string name="menu_username_label">\@username</string>
-    <string name="help_btn_label">HELP!!!</string>
+
+
+    <string name="save_label">Save</string>
+    <string name="new_goal_label">New Goal</string>
+    <string name="time_comin_soon_label">Time (Comin Soon)</string>
+    <string name="help_btn_label">HELP!!!!!</string>
     <string name="sign_out_btn_label">Sign Out</string>
+    <string name="menu_username_label">\@Username</string>
     <string name="FAQ_label">FAQs</string>
+    <string name="search_label">Search</string>
+    <string name="goals">Goals</string>
+    <string name="set_goals">Set Goals</string>
+    <string name="set_goals_label">Set Goals</string>
 
 
     <string-array name="Timesheet_categories">
