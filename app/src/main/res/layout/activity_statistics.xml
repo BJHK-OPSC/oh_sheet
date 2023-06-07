@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".StatisticsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/statistics_btn_back"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:tint="@color/purple_200"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+
+        <TextView
+            android:id="@+id/tvStatisticsTitle"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Category Statistics"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,18 +37,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvStatisticsTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.5"
-            android:text="Category Statistics"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Select Date Range"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -31,8 +45,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -45,25 +59,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:focusable="false"
                 android:clickable="true"
-                android:inputType="date"
-                android:hint="Select start date" />
+                android:focusable="false"
+                android:hint="Select start date"
+                android:inputType="date" />
 
             <Button
                 android:id="@+id/startDateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select"
-                android:onClick="showStartDatePickerDialog" />
+                android:onClick="showStartDatePickerDialog"
+                android:text="Select" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,17 +90,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:focusable="false"
                 android:clickable="true"
-                android:inputType="date"
-                android:hint="Select end date" />
+                android:focusable="false"
+                android:hint="Select end date"
+                android:inputType="date" />
 
             <Button
                 android:id="@+id/endDateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select"
-                android:onClick="showEndDatePickerDialog" />
+                android:onClick="showEndDatePickerDialog"
+                android:text="Select" />
 
         </LinearLayout>
 
@@ -98,8 +112,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
