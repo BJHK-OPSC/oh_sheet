@@ -48,7 +48,8 @@ class StatisticsActivity : AppCompatActivity() {
         val endTime = "15:00"
         val description = "Work thing"
         val category = Category("Work")
-        val entry = TimesheetEntry(date, startTime, endTime, description, category)
+        val entry =
+            TimesheetEntry(date, startTime, endTime, description, category)
         timesheetEntries.add(entry)
         val date2 = "2002-01-30"
         val startTime2 = "12:00"
@@ -63,16 +64,16 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun populateRecycleView(){
-        // Step 1: Extract unique categories
+        //Extract unique categories
         val uniqueCategories = HashSet<String>()
         for (entry in timesheetEntries) {
             uniqueCategories.add(entry.category.name)
         }
 
-        // Step 2: Create a data structure to store total time spent on each category
+        //Create a data structure to store total time spent on each category
         val totalTimeByCategory = HashMap<String, Int>()
 
-        // Step 3: Calculate total time spent on each category
+        //Calculate total time spent on each category
         for (category in uniqueCategories) {
             var totalTimeSpent = 0
 
@@ -101,7 +102,7 @@ class StatisticsActivity : AppCompatActivity() {
 
         val categoryList = ArrayList<dataCategory>()
 
-        // Iterate over the totalTimeByCategory HashMap
+        //Iterate over the totalTimeByCategory HashMap
         for ((category, totalTimeSpent) in totalTimeByCategory) {
             val categoryData = dataCategory(category, totalTimeSpent.toLong())
             categoryList.add(categoryData)

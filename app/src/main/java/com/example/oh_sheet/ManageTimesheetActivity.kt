@@ -62,9 +62,9 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         //these are the values that populate the table
         data.add(TableRowC("Value 1", "Value 2","Value 3", "Value 4", "value 5"))
 
-        val array: ArrayList<CreateTimesheetActivity.TimesheetEntry> = ArrayList()
+        val array: ArrayList<TimesheetEntry> = ArrayList()
 
-        array.addAll(obj.timesheetEntries)
+        array.addAll(timesheetEntries)
 
         //put Daniel H data into the values in " ... "
 
