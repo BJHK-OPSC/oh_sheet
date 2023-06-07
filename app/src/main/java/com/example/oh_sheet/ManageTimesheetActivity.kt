@@ -30,9 +30,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
     var selectedDate2: Date? = null
 
     //--------------------------------------------------------------------------\\
-    val obj = CreateTimesheetActivity()
-
-    val time: ArrayList<CreateTimesheetActivity.TimesheetEntry> = ArrayList()
+    val obj: CreateTimesheetActivity = CreateTimesheetActivity()
 
     //------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +39,6 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         recyclerView = findViewById(R.id.recyclerView)
         setupRecyclerView()
-
     }
 
     //------------------------------------------------------------------------------------------------\\
