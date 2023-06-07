@@ -1,7 +1,6 @@
 package com.example.oh_sheet
 
 import android.app.Activity
-import com.example.oh_sheet.CreateTimesheetActivity2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -12,8 +11,6 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.oh_sheet.databinding.ActivityCreateTimesheet2Binding
-import com.example.oh_sheet.databinding.ActivityCreateTimesheetBinding
 
 
 data class Category(val name: String)
@@ -40,8 +37,8 @@ class CreateTimesheetActivity : AppCompatActivity() {
 
 
 
-        val addPhotoButton = findViewById<Button>(R.id.addPhotoButton)
-        val createEntryButton = findViewById<Button>(R.id.createEntryButton)
+        val addPhotoButton = findViewById<Button>(R.id.addPhotoButton2)
+        val createEntryButton = findViewById<Button>(R.id.createEntryButton2)
 
         photoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {

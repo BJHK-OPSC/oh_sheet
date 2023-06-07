@@ -23,9 +23,7 @@
         <activity
             android:name=".ManageTimesheetActivity"
             android:exported="false" />
-        <activity
-            android:name=".CreateTimesheetActivity2"
-            android:exported="false" />
+
         <activity
             android:name=".CreateTimesheetActivity"
             android:exported="false" />
