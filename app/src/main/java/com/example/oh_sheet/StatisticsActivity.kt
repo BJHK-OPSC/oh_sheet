@@ -41,7 +41,6 @@ class StatisticsActivity : AppCompatActivity() {
 
         setupDatePickers()
         populateRecycleView()
-
     }
 
     private fun populateRecycleView(){

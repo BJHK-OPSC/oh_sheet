@@ -42,6 +42,8 @@
     <string name="menu_username_label">\@Username</string>
     <string name="FAQ_label">FAQs</string>
     <string name="search_label">Search</string>
+    <string name="goals">Goals</string>
+    <string name="set_goals">Set Goals</string>
 
 
     <string-array name="Timesheet_categories">

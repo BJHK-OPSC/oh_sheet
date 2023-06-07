@@ -18,19 +18,21 @@ import com.example.oh_sheet.CreateTimesheetActivity
 
 class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
+
+
+    //--------------------------------------------------------------------------\\
+    //var textSearchView1 = findViewById<TextView>(R.id.searchDate1)
+    //var textSearchView2 = findViewById<TextView>(R.id.searchDate2)
+
+    //val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    //var selectedDate1: Date? = null
+    //var selectedDate2: Date? = null
+
+    //--------------------------------------------------------------------------\\
+    //val obj: CreateTimesheetActivity = CreateTimesheetActivity()
+
     //--------------------------------------------------------------------------\\
     private lateinit var recyclerView: RecyclerView
-
-    //--------------------------------------------------------------------------\\
-    var textSearchView1 = findViewById<TextView>(R.id.searchDate1)
-    var textSearchView2 = findViewById<TextView>(R.id.searchDate2)
-
-    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-    var selectedDate1: Date? = null
-    var selectedDate2: Date? = null
-
-    //--------------------------------------------------------------------------\\
-    val obj: CreateTimesheetActivity = CreateTimesheetActivity()
 
     //------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +74,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         if(!array.indices.isEmpty()){
             for(i in array.indices){
 
-                val val1: String = array.get(i).category.toString()// category
+                val val1: String = array.get(i).category.name.toString()// category
                 val val2: String = array.get(i).date.toString() //date
                 val val3: String = array.get(i).description.toString() //description
                 val val4: String = array.get(i).endTime.toString() //end time
