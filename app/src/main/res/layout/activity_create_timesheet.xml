@@ -28,15 +28,6 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/wireframe__community___1_" />
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:tint="@color/purple_200"
-            app:srcCompat="@android:drawable/ic_menu_directions" />
-
     </LinearLayout>
 
     <ScrollView
