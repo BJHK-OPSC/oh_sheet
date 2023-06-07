@@ -18,7 +18,7 @@ class SetGoalsAcitivity2 : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_goals_acitivity2)
 
-        val intent = Intent(this, SetGoals :: class.java)
+        val intent = Intent(this, SetGoalsActivity :: class.java)
 
     }
 

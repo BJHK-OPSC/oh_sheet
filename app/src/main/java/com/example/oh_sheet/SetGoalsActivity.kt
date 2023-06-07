@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
-class SetGoals : AppCompatActivity(), View.OnClickListener {
+class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
 
     //finding ids for the textviews
     var textView1 = findViewById<TextView>(R.id.txtGoalName)

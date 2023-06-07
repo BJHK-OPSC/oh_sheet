@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Oh_sheet"
         tools:targetApi="31">
         <activity
+            android:name=".SetGoalsActivity"
+            android:exported="false" />
+        <activity
             android:name=".CustomCategoryListView"
             android:exported="false" />
         <activity
@@ -26,7 +29,6 @@
         <activity
             android:name=".ManageTimesheetActivity"
             android:exported="false" />
-
         <activity
             android:name=".CreateTimesheetActivity"
             android:exported="false" />
@@ -42,7 +44,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
@@ -52,10 +53,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-
-        <activity
-            android:name=".SetGoals"
-            android:exported="false" />
 
         <activity
             android:name=".SetGoalsAcitivity2"
