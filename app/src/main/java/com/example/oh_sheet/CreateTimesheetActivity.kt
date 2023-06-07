@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.Toast
 
 
 
@@ -72,11 +73,12 @@ class CreateTimesheetActivity : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     // Get the selected category
                     selectedCategory = categoryNames[position]
+                    showToast("Selected category: $selectedCategory")
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     // Handle the case when nothing is selected
-                    selectedCategory = null
+                    selectedCategory = "Work"
                 }
             }
 
@@ -108,5 +110,11 @@ class CreateTimesheetActivity : AppCompatActivity() {
         description.text.clear()
 
     }
+    //------------------------------------------------------------------------------------------------\\
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }
+
+
 //------------------------------------------End of File------------------------------------------------------\\
