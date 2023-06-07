@@ -10,7 +10,6 @@ class CreateTimesheetActivity : AppCompatActivity() {
     //should be accessible from anywhere\\
     val timesheetEntries: ArrayList<TimesheetEntry> = ArrayList()
 
-
     data class TimesheetEntry(
         val date: String,
         val startTime: String,

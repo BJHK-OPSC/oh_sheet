@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
+import java.util.Date
 import kotlin.collections.ArrayList
+import com.example.oh_sheet.CreateTimesheetActivity
 
 class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -29,6 +31,8 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
     //--------------------------------------------------------------------------\\
     val obj = CreateTimesheetActivity()
+
+    val time: ArrayList<CreateTimesheetActivity.TimesheetEntry> = ArrayList()
 
     //------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +65,10 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         //these are the values that populate the table
         data.add(TableRowC("Value 1", "Value 2","Value 3", "Value 4", "value 5"))
 
-        val array: ArrayList<CreateTimesheetActivity.TimesheetEntry> = obj.timesheetEntries
+        val array: ArrayList<CreateTimesheetActivity.TimesheetEntry> = ArrayList()
+
+        array.addAll(obj.timesheetEntries)
+
         //put Daniel H data into the values in " ... "
 
         //iterates thru arraylist and adds the data to my own arraylist
