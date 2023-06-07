@@ -25,7 +25,7 @@ class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
 
         /*val setGoalsButton: Button = findViewById(R.id.buttonNewGoal)
         setGoalsButton.setOnClickListener {
-            val intent = Intent(this, SetGoals::class.java)
+            val intent = Intent(this, SetGoalsActivity::class.java)
             startActivity(intent)
             finish()
         }*/
