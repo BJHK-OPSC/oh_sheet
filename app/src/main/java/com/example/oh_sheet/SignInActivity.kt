@@ -49,7 +49,7 @@ class SignInActivity : AppCompatActivity() {
         val registeredUsername = sharedPreferences.getString("username", "")
         val registeredPassword = sharedPreferences.getString("password", "")
 
-        return username == registeredUsername && password == registeredPassword
+        return true//username == registeredUsername && password == registeredPassword
     }
 
 }
