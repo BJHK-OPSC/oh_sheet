@@ -7,6 +7,12 @@ import android.view.View
 import android.widget.TextView
 
 class SetGoalsAcitivity2 : AppCompatActivity(), View.OnClickListener {
+
+    val textViewGoal: TextView = findViewById(R.id.txtGoalName) as TextView
+    val textViewMin: TextView = findViewById(R.id.txtGoalName) as TextView
+    val textViewMax: TextView = findViewById(R.id.txtGoalName) as TextView
+
+    //------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_goals_acitivity2)
@@ -14,10 +20,7 @@ class SetGoalsAcitivity2 : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(this, SetGoals :: class.java)
     }
 
-    val textViewGoal: TextView = findViewById(R.id.txtGoalName) as TextView
-    val textViewMin: TextView = findViewById(R.id.txtGoalName) as TextView
-    val textViewMax: TextView = findViewById(R.id.txtGoalName) as TextView
-
+    //------------------------------------------------------------------------------------------------\\
     override fun onClick(v: View?) {
         val name: String = textViewGoal.toString()
         val min: String = textViewMin.toString()
@@ -34,8 +37,7 @@ class SetGoalsAcitivity2 : AppCompatActivity(), View.OnClickListener {
             // TextView is empty
         }
 
-
     }
 
-
 }
+//------------------------------------------End of File------------------------------------------------------\\
