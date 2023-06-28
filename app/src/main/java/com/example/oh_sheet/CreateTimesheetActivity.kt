@@ -68,7 +68,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
             val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            categorySpinner.adapter = adapter
+            categorySpinner.adapter = adapter // Set the adapter for the spinner
             categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     // Get the selected category
