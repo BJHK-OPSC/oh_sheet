@@ -86,12 +86,19 @@ class CreateTimesheetActivity : AppCompatActivity() {
             val startTime = findViewById<EditText>(R.id.startTimeEditText).text.toString()
             val endTime = findViewById<EditText>(R.id.endTimeEditText).text.toString()
             val description = findViewById<EditText>(R.id.descriptionEditText).text.toString()
-            val category = Category(selectedCategory ?: "")
+            val category = Category("Work")
 
             val entry = TimesheetEntry(date, startTime, endTime, description, category)
             timesheetEntries.add(entry)
 
             clearInputFields()
+        }
+
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
     }
