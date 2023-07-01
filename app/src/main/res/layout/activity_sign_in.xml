@@ -64,11 +64,11 @@
                 app:boxBackgroundColor="@color/purple_200">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/usernameEditText"
+                    android:id="@+id/emailEditTextIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:hint="@string/username_label"
+                    android:hint="@string/Email_prompt"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />

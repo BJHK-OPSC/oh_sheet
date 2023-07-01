@@ -45,6 +45,7 @@
     <string name="goals">Goals</string>
     <string name="set_goals">Set Goals</string>
     <string name="set_goals_label">Set Goals</string>
+    <string name="Email_prompt">Email</string>
 
 
     <string-array name="Timesheet_categories">
