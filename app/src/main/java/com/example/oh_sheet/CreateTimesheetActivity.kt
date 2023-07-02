@@ -15,10 +15,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 data class Category(val name: String)
@@ -41,6 +46,9 @@ class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
     var selectedCategory: String? = null
     val categoryNames = listOf("Work", "Study", "Exercise")
+    private lateinit var dateButton: Button
+    private lateinit var datePicker: MaterialDatePicker<Long>
+    private lateinit var dateEditText: TextInputEditText
 
     lateinit var notificationManager: NotificationManager
     lateinit var notificationChannel: NotificationChannel
@@ -59,6 +67,11 @@ class CreateTimesheetActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference
 
         auth = FirebaseAuth.getInstance()
+
+        setupDatePickers()
+
+        dateEditText = findViewById(R.id.dateEditText)
+        dateButton = findViewById(R.id.dateButton)
 
         val addPhotoButton = findViewById<Button>(R.id.addPhotoButton)
         val createEntryButton = findViewById<Button>(R.id.createEntryButton)
@@ -148,7 +161,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
                     entry.userId = userId
                     timesheetEntries.add(entry)
 
-                    database.child("timesheet").child(entryKey).setValue(entry)
+                    database.child("timesheets").child(entryKey).setValue(entry)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 // Entry saved successfully
@@ -228,6 +241,33 @@ class CreateTimesheetActivity : AppCompatActivity() {
                 .setSmallIcon(R.drawable.ohsheet_pic)
         }
 
+    }
+
+    private fun setupDatePickers() {
+        datePicker = createDatePicker { timestamp ->
+            val selectedDate = Date(timestamp)
+            dateEditText.setText(formatDate(selectedDate))
+        }
+    }
+
+    private fun createDatePicker(onDateSelected: (Long) -> Unit): MaterialDatePicker<Long> {
+        val builder = MaterialDatePicker.Builder.datePicker()
+        val picker = builder.build()
+
+        picker.addOnPositiveButtonClickListener { timestamp ->
+            onDateSelected(timestamp)
+        }
+
+        return picker
+    }
+
+    fun showDatePickerDialog(view: View) {
+        datePicker.show(supportFragmentManager, "datePicker")
+    }
+
+    private fun formatDate(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return format.format(date)
     }
 }
 
