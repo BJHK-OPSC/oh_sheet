@@ -141,8 +141,7 @@
                     android:layout_gravity="center"
                     android:text="@string/Graph_label"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
