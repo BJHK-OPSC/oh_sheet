@@ -8,16 +8,24 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
-import android.widget.Button
-import android.widget.Chronometer
-import android.widget.EditText
-import android.widget.ImageButton
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import java.util.Calendar;
+import java.util.Date;
 
 class TimerActivity : AppCompatActivity() {
+
+    var selectedCategory: String = "Work"
+    val categoryNames = listOf("Work", "Study", "Exercise")
 
     private lateinit var timer: Chronometer
     private lateinit var toggleButton: Button
@@ -27,6 +35,9 @@ class TimerActivity : AppCompatActivity() {
     lateinit var builder : NotificationCompat.Builder
     private val channelID = "1"
     private val description = "OhSheet Timer"
+
+    private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
 
     private var isTimerRunning = false
     private var elapsedMillis: Long = 0
@@ -39,9 +50,35 @@ class TimerActivity : AppCompatActivity() {
         timer = findViewById(R.id.timer)
         toggleButton = findViewById(R.id.toggle_button)
 
+        database = FirebaseDatabase.getInstance().reference
+
+        auth = FirebaseAuth.getInstance()
+
         // Set click listener for toggle button
         toggleButton.setOnClickListener {
             toggleTimer()
+        }
+
+        val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner.adapter = adapter
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                // Get the selected category
+                selectedCategory = categoryNames[position]
+                showToast("Selected category: $selectedCategory")
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle the case when nothing is selected
+                selectedCategory = "Work"
+            }
         }
 
         val backButton: ImageButton = findViewById(R.id.backButton)
@@ -79,7 +116,6 @@ class TimerActivity : AppCompatActivity() {
 
 
     private fun toggleTimer() {
-
         sendNotification()
 
         if (isTimerRunning) {
@@ -89,20 +125,45 @@ class TimerActivity : AppCompatActivity() {
             isTimerRunning = false
             notificationManager.cancel(1)
 
-            // Create a TimesheetEntry object
-            val entry = TimesheetEntry(
-                date = getCurrentDate(),
-                startTime = getFormattedTime(timer.base),
-                endTime = getFormattedTime(SystemClock.elapsedRealtime()),
-                description = findViewById<EditText>(R.id.entry_name_edit_text).text.toString(),
-                category = Category(findViewById<EditText>(R.id.category_edit_text).text.toString()),
-                photoPath = "",
-                userId = ""
+            // Set the end time
+            val endTime = System.currentTimeMillis()
 
-            )
+            // Database Timesheet entry
+            val currentUser: FirebaseUser? = auth.currentUser
+            val userID: String? = currentUser?.uid
 
-            // Add the entry to timesheetEntries
-            timesheetEntries.add(entry)
+            if (userID != null) {
+                val entryKey = database.child("timesheets").push().key
+                if (entryKey != null) {
+                    // Create a TimesheetEntry object with start and end times
+                    val entry = TimesheetEntry(
+                        date = getCurrentDate(),
+                        startTime = getFormattedTime(timer.base),
+                        endTime = getFormattedTime(endTime),
+                        description = findViewById<EditText>(R.id.entry_name_edit_text).text.toString(),
+                        category = Category(selectedCategory),
+                        photoPath = "",
+                        userId = userID
+                    )
+                    timesheetEntries.add(entry)
+
+                    database.child("timesheets").child(entryKey).setValue(entry)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                // Entry saved successfully
+                                showToast("Entry created successfully")
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                // Error occurred while saving the entry
+                                showToast("Failed to create entry")
+                            }
+                        }
+                }
+            } else {
+                showToast("User not signed in")
+            }
 
             // Update toggle button text and background
             toggleButton.text = getString(R.string.start)
@@ -123,13 +184,16 @@ class TimerActivity : AppCompatActivity() {
             // Update toggle button text and background
             toggleButton.text = getString(R.string.stop)
             toggleButton.setBackgroundResource(R.drawable.button_stop_bg)
-
         }
     }
 
     private fun getCurrentDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date())
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun getFormattedTime(time: Long): String {
