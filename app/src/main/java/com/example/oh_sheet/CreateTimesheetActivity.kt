@@ -15,10 +15,16 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.selects.select
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 data class Category(val name: String)
@@ -39,8 +45,11 @@ data class TimesheetEntry(
 //------------------------------------------------------------------------------------------------\\
 class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
-    var selectedCategory: String? = null
+    var selectedCategory: String = "Work"
     val categoryNames = listOf("Work", "Study", "Exercise")
+    private lateinit var dateButton: Button
+    private lateinit var datePicker: MaterialDatePicker<Long>
+    private lateinit var dateEditText: TextInputEditText
 
     lateinit var notificationManager: NotificationManager
     lateinit var notificationChannel: NotificationChannel
@@ -60,9 +69,34 @@ class CreateTimesheetActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+        setupDatePickers()
+
+        dateEditText = findViewById(R.id.dateEditText)
+        dateButton = findViewById(R.id.dateButton)
+
         val addPhotoButton = findViewById<Button>(R.id.addPhotoButton)
         val createEntryButton = findViewById<Button>(R.id.createEntryButton)
+        val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner.adapter = adapter
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                // Get the selected category
+                selectedCategory = categoryNames[position]
+                showToast("Selected category: $selectedCategory")
+            }
 
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle the case when nothing is selected
+                selectedCategory = "Work"
+            }
+        }
         photoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
@@ -107,33 +141,13 @@ class CreateTimesheetActivity : AppCompatActivity() {
         //------------------------------------------------------------------------------------------------\\
         // Button click listener to create a new timesheet entry
         createEntryButton.setOnClickListener {
-            val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            categorySpinner.adapter = adapter
-            categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    // Get the selected category
-                    selectedCategory = categoryNames[position]
-                    showToast("Selected category: $selectedCategory")
-                }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Handle the case when nothing is selected
-                    selectedCategory = "Work"
-                }
-            }
 
             val date = findViewById<EditText>(R.id.dateEditText).text.toString()
             val startTime = findViewById<EditText>(R.id.startTimeEditText).text.toString()
             val endTime = findViewById<EditText>(R.id.endTimeEditText).text.toString()
             val description = findViewById<EditText>(R.id.descriptionEditText).text.toString()
-            val category = Category("Work")
+            val category = Category(selectedCategory)
 
 
 
@@ -148,7 +162,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
                     entry.userId = userId
                     timesheetEntries.add(entry)
 
-                    database.child("timesheet").child(entryKey).setValue(entry)
+                    database.child("timesheets").child(entryKey).setValue(entry)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 // Entry saved successfully
@@ -169,17 +183,15 @@ class CreateTimesheetActivity : AppCompatActivity() {
 
             clearInputFields()
 
-
-            val backButton: ImageButton = findViewById(R.id.backButton)
-            backButton.setOnClickListener()
-            {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
         }
 
-
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener()
+        {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun ImageButton.setOnClickListener() {
@@ -228,6 +240,33 @@ class CreateTimesheetActivity : AppCompatActivity() {
                 .setSmallIcon(R.drawable.ohsheet_pic)
         }
 
+    }
+
+    private fun setupDatePickers() {
+        datePicker = createDatePicker { timestamp ->
+            val selectedDate = Date(timestamp)
+            dateEditText.setText(formatDate(selectedDate))
+        }
+    }
+
+    private fun createDatePicker(onDateSelected: (Long) -> Unit): MaterialDatePicker<Long> {
+        val builder = MaterialDatePicker.Builder.datePicker()
+        val picker = builder.build()
+
+        picker.addOnPositiveButtonClickListener { timestamp ->
+            onDateSelected(timestamp)
+        }
+
+        return picker
+    }
+
+    fun showDatePickerDialog(view: View) {
+        datePicker.show(supportFragmentManager, "datePicker")
+    }
+
+    private fun formatDate(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return format.format(date)
     }
 }
 
