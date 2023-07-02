@@ -60,7 +60,22 @@ class CreateTimesheetActivity : AppCompatActivity() {
 
         val addPhotoButton = findViewById<Button>(R.id.addPhotoButton)
         val createEntryButton = findViewById<Button>(R.id.createEntryButton)
+        val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        categorySpinner.adapter = adapter
+        categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // Get the selected category
+                selectedCategory = categoryNames[position]
+                showToast("Selected category: $selectedCategory")
+            }
 
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle the case when nothing is selected
+                selectedCategory = "Work"
+            }
+        }
         photoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val selectedPhotoUri = result.data?.data
@@ -86,22 +101,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
         //------------------------------------------------------------------------------------------------\\
         // Button click listener to create a new timesheet entry
         createEntryButton.setOnClickListener {
-            val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            categorySpinner.adapter = adapter
-            categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    // Get the selected category
-                    selectedCategory = categoryNames[position]
-                    showToast("Selected category: $selectedCategory")
-                }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Handle the case when nothing is selected
-                    selectedCategory = "Work"
-                }
-            }
 
             val date = findViewById<EditText>(R.id.dateEditText).text.toString()
             val startTime = findViewById<EditText>(R.id.startTimeEditText).text.toString()
