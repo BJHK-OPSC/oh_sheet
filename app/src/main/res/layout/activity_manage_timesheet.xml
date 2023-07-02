@@ -111,7 +111,7 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/active_label"
                 android:textColor="@color/black"

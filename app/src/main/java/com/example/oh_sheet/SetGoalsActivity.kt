@@ -9,13 +9,18 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
+data class Goals(
+    val name: String?,
+    val min: String?,
+    val max: String?
+)
 
+val goalsEntries: ArrayList<Goals> = ArrayList()
 class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
 
-    //finding ids for the textviews
-    var textView1 = findViewById<TextView>(R.id.txtGoalName)
-    var textView2 = findViewById<TextView>(R.id.txtMinGoal)
-    var textView3 = findViewById<TextView>(R.id.txtMaxGoal)
+    private lateinit var textViewGoalName: TextView
+    private lateinit var textViewMinGoal: TextView
+    private lateinit var textViewMaxGoal: TextView
 
     //------------------------------------------------------------------------------------------------\\
 
@@ -23,12 +28,17 @@ class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_goals)
 
-        /*val setGoalsButton: Button = findViewById(R.id.buttonNewGoal)
+        //finding ids for the textviews
+        textViewGoalName = findViewById<TextView>(R.id.txtGoalName)
+        textViewMinGoal = findViewById<TextView>(R.id.txtMinGoal)
+        textViewMaxGoal = findViewById<TextView>(R.id.txtMaxGoal)
+
+        val setGoalsButton: Button = findViewById(R.id.buttonNewGoal)
         setGoalsButton.setOnClickListener {
             val intent = Intent(this, SetGoalsActivity::class.java)
             startActivity(intent)
             finish()
-        }*/
+        }
     }
 
     //------------------------------------------------------------------------------------------------\\
@@ -50,9 +60,14 @@ class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
                 val str2 = data?.getStringExtra("min")
                 val str3 = data?.getStringExtra("max")
 
-                textView1.setText(str1)
-                textView2.setText(str2)
-                textView3.setText(str3)
+                textViewGoalName.setText(str1)
+                textViewMinGoal.setText(str2)
+                textViewMaxGoal.setText(str3)
+
+                val goalEntry = Goals(str1, str2, str3)
+
+                goalsEntries.clear()
+                goalsEntries.add(goalEntry)
             }
         }
     }

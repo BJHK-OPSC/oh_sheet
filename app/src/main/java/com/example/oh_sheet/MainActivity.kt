@@ -38,5 +38,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        val graphButton: Button = findViewById(R.id.graphBtn)
+        graphButton.setOnClickListener {
+            val intent = Intent(this, GraphActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

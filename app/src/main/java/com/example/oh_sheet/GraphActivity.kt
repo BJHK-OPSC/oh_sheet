@@ -25,6 +25,8 @@ class GraphActivity : AppCompatActivity() {
     private lateinit var lineChart: LineChart
     val labels = ArrayList<String>()
 
+    private lateinit var mi: String
+    private lateinit var ma: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graph)
@@ -41,9 +43,8 @@ class GraphActivity : AppCompatActivity() {
             lineChart.invalidate()
         }catch (e: java.lang.Exception){
             Log.d("fail","failure")
-        }finally {
-            Log.d("status","finally")
         }
+
         if(!labels.indices.isEmpty()){
             Log.d("status","not empty")
         }else{
@@ -58,13 +59,31 @@ class GraphActivity : AppCompatActivity() {
 
             description.isEnabled = false
 
+            val chartPad40 = 40
+            val chartPad20 = 20
+            setPadding(chartPad40,chartPad20,chartPad40,chartPad20)
+
+            setTouchEnabled(true)
+            isDragEnabled = true
+            setScaleEnabled(false)
+
             xAxis.position = XAxis.XAxisPosition.BOTTOM
+
+            xAxis.labelCount = 5
+            xAxis.setAvoidFirstLastClipping(true)
 
             xAxis.granularity = 1F
             xAxis.setDrawGridLines(false)
-            xAxis.setDrawAxisLine(false)
+            xAxis.setDrawAxisLine(true)
             axisLeft.setDrawGridLines(false)
             extraRightOffset = 30f
+
+            val visibleRange = 5f
+            setVisibleXRangeMaximum(visibleRange)
+            setVisibleXRangeMinimum(visibleRange)
+
+            axisLeft.axisMaximum = 7f
+            axisLeft.axisMinimum = 0f
 
             legend.isEnabled = true
             legend.orientation = Legend.LegendOrientation.VERTICAL
@@ -80,29 +99,40 @@ class GraphActivity : AppCompatActivity() {
         val hours = ArrayList<Entry>()
 
         //for 2nd and 3rd
-
+        val minList = ArrayList<Entry>()
+        val maxList = ArrayList<Entry>()
 
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val array: ArrayList<TimesheetEntry> = ArrayList()
+        val GoalsArray: ArrayList<Goals> = ArrayList()
 
         //test
         val category = Category("Work")
-        array.add(TimesheetEntry("Value 1", "Value 2","18", "Value 4", category))
+        array.add(TimesheetEntry("2023-03-03", "15:00","18:00", "Value 4", category))
+        array.add(TimesheetEntry("2023-03-04", "13:00","18:00", "Value 4", category))
+        array.add(TimesheetEntry("2023-03-05", "12:00","18:00", "Value 4", category))
+        array.add(TimesheetEntry("2023-03-06", "11:00","18:00", "Value 4", category))
+        array.add(TimesheetEntry("2023-03-07", "16:00","18:00", "Value 4", category))
+        array.add(TimesheetEntry("2023-03-08", "15:00","18:00", "Value 4", category))
+        array.add(TimesheetEntry("2023-03-09", "17:00","18:00", "Value 4", category))
 
-        try{
-            labels.add("Value 1")
-            Log.d("status","labels added")
-        }catch (e: Exception){
-            Log.d("fail5","failure5")
+        if(!GoalsArray.indices.isEmpty()){
+            mi = GoalsArray.get(0).min.toString()
+            ma = GoalsArray.get(0).min.toString()
+            Log.d("succ2", "succeedd")
+        }
+        else{
+            mi = "2f"
+            ma = "6f"
+            Log.d("else", "else exec")
         }
 
-        //array.addAll(timesheetEntries)
+        array.addAll(timesheetEntries)
 
         if(!array.indices.isEmpty()){
             for(i in array.indices){
 
-                val val1: String = array.get(i).category.name.toString()// category
-                val val2: String = array.get(i).date.toString() //date
+                val day: String = array.get(i).date.toString() //date
                 val end: String = array.get(i).endTime.toString()
                 val start: String = array.get(i).startTime.toString()
 
@@ -123,22 +153,47 @@ class GraphActivity : AppCompatActivity() {
                 //replace val2 with hours
                 hours.add(Entry(i.toFloat(),timeSpentMinutes.toFloat() ))
 
-                labels.add(val2)
+                minList.add(Entry(i.toFloat(), mi.toFloat()))
+                Log.d("succ3", "succeedd")
+                maxList.add(Entry(i.toFloat(), ma.toFloat()))
+                labels.add(day)
 
-                //data.add(TableRowC(val3, val2, val5,val4, val1))
             }
         }
         //dataset object 1
-        val weekOneSales = LineDataSet(hours, "HoursWorked")
-        weekOneSales.lineWidth = 3f
-        weekOneSales.valueTextSize = 15f
-        weekOneSales.mode = LineDataSet.Mode.CUBIC_BEZIER
-        weekOneSales.setColor(Color.RED)
-        weekOneSales.valueTextColor = Color.BLACK
-        weekOneSales.enableDashedLine(20F, 10F, 0F)
+        val hoursWorked = LineDataSet(hours, "HoursWorked")
+        hoursWorked.lineWidth = 3f
+        hoursWorked.valueTextSize = 0f
+        hoursWorked.mode = LineDataSet.Mode.LINEAR
+        hoursWorked.setColor(Color.BLUE)
+        hoursWorked.setCircleColor(Color.BLUE)
+        hoursWorked.valueTextColor = Color.TRANSPARENT
+        hoursWorked.enableDashedLine(20F, 10F, 0F)
+
+        //dataset object 2
+        val min = LineDataSet(minList, "Minimum Goal")
+        min.lineWidth = 3f
+        min.valueTextSize = 0f
+        min.mode = LineDataSet.Mode.LINEAR
+        min.setColor(Color.RED)
+        min.setDrawCircles(false)
+        min.valueTextColor = Color.TRANSPARENT
+        min.enableDashedLine(20F, 15F, 0F)
+
+        //dataset object 3
+        val max = LineDataSet(maxList, "Maximum Goal")
+        max.lineWidth = 3f
+        max.valueTextSize = 0f
+        max.mode = LineDataSet.Mode.LINEAR
+        max.setColor(Color.RED)
+        max.setDrawCircles(false)
+        max.valueTextColor = Color.TRANSPARENT
+        max.enableDashedLine(20F, 15F, 0F)
 
         val dataSet = ArrayList<ILineDataSet>()
-        dataSet.add(weekOneSales)
+        dataSet.add(hoursWorked)
+        dataSet.add(min)
+        dataSet.add(max)
 
         val lineData = LineData(dataSet)
         lineChart.data = lineData
