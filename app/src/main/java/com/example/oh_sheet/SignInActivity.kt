@@ -55,15 +55,38 @@ class SignInActivity : AppCompatActivity() {
     private data class User(val email: String? = null, val password: String? = null)
 
 
+
+
+    fun hashPassword(password: String): String {
+        val messageDigest = MessageDigest.getInstance("SHA-256")
+        val passwordBytes = password.toByteArray()
+        val hashedBytes = messageDigest.digest(passwordBytes)
+        return bytesToHex(hashedBytes)
+    }
+
+    private fun bytesToHex(bytes: ByteArray): String {
+        val hexChars = CharArray(bytes.size * 2)
+        for (i in bytes.indices) {
+            val v = bytes[i].toInt() and 0xFF
+            hexChars[i * 2] = "0123456789ABCDEF"[v ushr 4]
+            hexChars[i * 2 + 1] = "0123456789ABCDEF"[v and 0x0F]
+        }
+        return String(hexChars)
+    }
+
+
+
+
     private fun validateCredentials(email: String, password: String) {
         val usersQuery = database.child("users").orderByChild("email").equalTo(email)
+        val hashPassword = hashPassword(password)
 
         usersQuery.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     for (userSnapshot in snapshot.children) {
                         val user = userSnapshot.getValue(User::class.java)
-                        if (user != null && user.password == password) {
+                        if (user != null && user.password == hashPassword) {
                             // Valid credentials, start the main activity
                             val intent = Intent(this@SignInActivity, MainActivity::class.java)
                             startActivity(intent)
