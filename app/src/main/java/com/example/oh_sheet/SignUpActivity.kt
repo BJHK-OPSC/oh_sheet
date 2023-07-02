@@ -34,6 +34,19 @@ class SignUpActivity : AppCompatActivity() {
         auth = Firebase.auth
         database = Firebase.database.reference
 
+
+
+        val registerButton: Button = findViewById(R.id.registerButton)
+        registerButton.setOnClickListener {
+            emailEditText = findViewById(R.id.emailEditTextIn)
+            passwordEditText = findViewById(R.id.passwordEditText)
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            // Validate user credentials
+            createAccount(email, password)
+        }
+
         val backButton: ImageButton = findViewById(R.id.backButton)
         backButton.setOnClickListener {
             val intent = Intent(this, LandingPageActivity::class.java)
@@ -51,7 +64,13 @@ class SignUpActivity : AppCompatActivity() {
     fun writeNewUser(userId: String, email: String, password: String){
         val user = User(email,password)
         database.child("users").child(userId).setValue(user)
+        Toast.makeText(
+            baseContext,
+            "User logged.",
+            Toast.LENGTH_SHORT,
+        ).show()
     }
+
 
     /*public override fun onStart() {
         super.onStart()
@@ -114,8 +133,6 @@ class SignUpActivity : AppCompatActivity() {
 
 
     private fun createAccount(email: String, password: String) {
-        val email = emailEditText.text.toString()
-        val password = passwordEditText.text.toString()
         val hashedPassword = hashPassword(password)
 
         if (isValidRegistration(email, password) == RegistrationValidationResult.SUCCESS) {
@@ -145,11 +162,6 @@ class SignUpActivity : AppCompatActivity() {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
-
-
 
 }
 
