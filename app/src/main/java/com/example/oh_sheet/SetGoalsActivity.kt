@@ -32,7 +32,7 @@ class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //------------------------------------------------------------------------------------------------\\
-    //click event for the save button
+    //click event for the save timerBtn
     override fun onClick(view: View) {
         val intent = Intent(this, SetGoalsAcitivity2 :: class.java)
         startActivityForResult(intent, 1)
