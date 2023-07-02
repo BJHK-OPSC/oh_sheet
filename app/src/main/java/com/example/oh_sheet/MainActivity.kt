@@ -18,6 +18,13 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+        val timerButton: Button = findViewById(R.id.timerBtn)
+        timerButton.setOnClickListener {
+            val intent = Intent(this, TimerActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         val manageTimesheetButton: Button = findViewById(R.id.manageTimesheet_button)
         manageTimesheetButton.setOnClickListener {
             val intent = Intent(this, ManageTimesheetActivity::class.java)
@@ -28,6 +35,13 @@ class MainActivity : AppCompatActivity() {
         val statisticsButton: Button = findViewById(R.id.statistics_button)
         statisticsButton.setOnClickListener {
             val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        val setGoalsButton: Button = findViewById(R.id.set_goals_btn)
+        setGoalsButton.setOnClickListener {
+            val intent = Intent(this, SetGoalsActivity::class.java)
             startActivity(intent)
             finish()
         }

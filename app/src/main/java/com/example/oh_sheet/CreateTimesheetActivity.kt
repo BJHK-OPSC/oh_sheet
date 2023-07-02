@@ -1,19 +1,20 @@
 package com.example.oh_sheet
 
 import android.app.Activity
-import com.example.oh_sheet.CreateTimesheetActivity2
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.oh_sheet.databinding.ActivityCreateTimesheet2Binding
-import com.example.oh_sheet.databinding.ActivityCreateTimesheetBinding
+import android.widget.Toast
+import androidx.core.app.NotificationCompat
 
 
 data class Category(val name: String)
@@ -33,6 +34,13 @@ data class TimesheetEntry(
 class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
     var selectedCategory: String? = null
+    val categoryNames = listOf("Work", "Study", "Exercise")
+
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder : NotificationCompat.Builder
+    private val channelID = "1"
+    private val description = "OhSheet Entry Created"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +63,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
                 }
             }
         }
-
+        //------------------------------------------------------------------------------------------------\\
         // Button click listener to add a photograph
         addPhotoButton.setOnClickListener {
             // Open camera or gallery to select a photo
@@ -65,47 +73,93 @@ class CreateTimesheetActivity : AppCompatActivity() {
             intent.type = "image/*"
             photoLauncher.launch(intent)
         }
-
+        //------------------------------------------------------------------------------------------------\\
         // Button click listener to create a new timesheet entry
         createEntryButton.setOnClickListener {
             val categorySpinner = findViewById<Spinner>(R.id.categorySpinner)
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categoryNames)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            categorySpinner.adapter = adapter
             categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     // Get the selected category
-                    selectedCategory = parent?.getItemAtPosition(position) as? String
-
+                    selectedCategory = categoryNames[position]
+                    showToast("Selected category: $selectedCategory")
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     // Handle the case when nothing is selected
-                    selectedCategory = null
+                    selectedCategory = "Work"
                 }
             }
+
             val date = findViewById<EditText>(R.id.dateEditText).text.toString()
             val startTime = findViewById<EditText>(R.id.startTimeEditText).text.toString()
             val endTime = findViewById<EditText>(R.id.endTimeEditText).text.toString()
             val description = findViewById<EditText>(R.id.descriptionEditText).text.toString()
-            val category = selectedCategory?.let { Category(it) }
+            val category = Category("Work")
+
             val entry = TimesheetEntry(date, startTime, endTime, description, category)
             timesheetEntries.add(entry)
 
+            sendNotification()
+            notificationManager.notify(2, builder.build())
+
             clearInputFields()
         }
+
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
 
-//------------------------------------------------------------------------------------------------\\
+    //------------------------------------------------------------------------------------------------\\
     private fun clearInputFields() {
-    //clears all fields
-    val date = findViewById<EditText>(R.id.dateEditText)
-    val startTime = findViewById<EditText>(R.id.startTimeEditText)
-    val endTime = findViewById<EditText>(R.id.endTimeEditText)
-    val description = findViewById<EditText>(R.id.descriptionEditText)
-    date.text.clear()
-    startTime.text.clear()
-    endTime.text.clear()
-    description.text.clear()
+        //clears all fields
+        val date = findViewById<EditText>(R.id.dateEditText)
+        val startTime = findViewById<EditText>(R.id.startTimeEditText)
+        val endTime = findViewById<EditText>(R.id.endTimeEditText)
+        val description = findViewById<EditText>(R.id.descriptionEditText)
+        date.text.clear()
+        startTime.text.clear()
+        endTime.text.clear()
+        description.text.clear()
+
+    }
+    //------------------------------------------------------------------------------------------------\\
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun sendNotification(){
+
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            notificationChannel = NotificationChannel(channelID, description, NotificationManager.IMPORTANCE_DEFAULT)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.GREEN
+            notificationChannel.enableVibration(true)
+            notificationManager.createNotificationChannel(notificationChannel)
+
+            builder = NotificationCompat.Builder(this, channelID)
+                .setContentTitle("OhSheet Entry")
+                .setContentText("New Entry Added")
+                .setSmallIcon(R.drawable.ohsheet_pic)
+        }else{
+            builder = NotificationCompat.Builder(this)
+                .setContentTitle("OhSheet Entry")
+                .setContentText("New Entry Added")
+                .setSmallIcon(R.drawable.ohsheet_pic)
+        }
 
     }
 }
+
+
 //------------------------------------------End of File------------------------------------------------------\\
