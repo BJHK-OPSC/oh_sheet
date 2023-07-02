@@ -1,15 +1,20 @@
 package com.example.oh_sheet
 
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import android.widget.Toast
-
+import androidx.core.app.NotificationCompat
 
 
 data class Category(val name: String)
@@ -30,6 +35,12 @@ class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
     var selectedCategory: String? = null
     val categoryNames = listOf("Work", "Study", "Exercise")
+
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder : NotificationCompat.Builder
+    private val channelID = "1"
+    private val description = "OhSheet Entry Created"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +102,9 @@ class CreateTimesheetActivity : AppCompatActivity() {
             val entry = TimesheetEntry(date, startTime, endTime, description, category)
             timesheetEntries.add(entry)
 
+            sendNotification()
+            notificationManager.notify(2, builder.build())
+
             clearInputFields()
         }
 
@@ -120,6 +134,30 @@ class CreateTimesheetActivity : AppCompatActivity() {
     //------------------------------------------------------------------------------------------------\\
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun sendNotification(){
+
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            notificationChannel = NotificationChannel(channelID, description, NotificationManager.IMPORTANCE_DEFAULT)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.GREEN
+            notificationChannel.enableVibration(true)
+            notificationManager.createNotificationChannel(notificationChannel)
+
+            builder = NotificationCompat.Builder(this, channelID)
+                .setContentTitle("OhSheet Entry")
+                .setContentText("New Entry Added")
+                .setSmallIcon(R.drawable.ohsheet_pic)
+        }else{
+            builder = NotificationCompat.Builder(this)
+                .setContentTitle("OhSheet Entry")
+                .setContentText("New Entry Added")
+                .setSmallIcon(R.drawable.ohsheet_pic)
+        }
+
     }
 }
 

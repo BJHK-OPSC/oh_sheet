@@ -26,7 +26,7 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*setContentView(R.layout.activity_sign_in)
+        setContentView(R.layout.activity_sign_in)
 
         sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         database = Firebase.database.reference
@@ -48,7 +48,7 @@ class SignInActivity : AppCompatActivity() {
             val intent = Intent(this, LandingPageActivity::class.java)
             startActivity(intent)
             finish()
-        }*/
+        }
     }
 
 

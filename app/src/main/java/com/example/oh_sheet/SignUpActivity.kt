@@ -30,8 +30,16 @@ class SignUpActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_sign_up)
         auth = Firebase.auth
         database = Firebase.database.reference
+
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val intent = Intent(this, LandingPageActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     @IgnoreExtraProperties
