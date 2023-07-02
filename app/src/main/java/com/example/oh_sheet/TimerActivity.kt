@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class TimerActivity : AppCompatActivity() {
 
@@ -96,7 +95,10 @@ class TimerActivity : AppCompatActivity() {
                 startTime = getFormattedTime(timer.base),
                 endTime = getFormattedTime(SystemClock.elapsedRealtime()),
                 description = findViewById<EditText>(R.id.entry_name_edit_text).text.toString(),
-                category = Category(findViewById<EditText>(R.id.category_edit_text).text.toString())
+                category = Category(findViewById<EditText>(R.id.category_edit_text).text.toString()),
+                photoPath = "",
+                userId = ""
+
             )
 
             // Add the entry to timesheetEntries

@@ -33,7 +33,8 @@ data class TimesheetEntry(
     val description: String,
     val category: Category,
     var photoPath: String? = "",
-    var userId: String
+    var userId: String,
+
 )
 //------------------------------------------------------------------------------------------------\\
 class CreateTimesheetActivity : AppCompatActivity() {
@@ -48,8 +49,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
     private val description = "OhSheet Entry Created"
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    val currentUser: FirebaseUser? = auth.currentUser
-    val userId: String? = currentUser?.uid
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,17 +136,18 @@ class CreateTimesheetActivity : AppCompatActivity() {
             val category = Category("Work")
 
 
-            val entry = TimesheetEntry(date, startTime, endTime, description, category,userId)
-            timesheetEntries.add(entry)
 
             //Database Timesheet entry
-
-
+            val currentUser: FirebaseUser? = auth.currentUser
+            val userId: String? = currentUser?.uid
 
             if (userId != null) {
                 val entryKey = database.child("timesheets").push().key
                 if (entryKey != null) {
+                    val entry = TimesheetEntry(date, startTime, endTime, description, category, photoPath = "",userId)
                     entry.userId = userId
+                    timesheetEntries.add(entry)
+
                     database.child("timesheet").child(entryKey).setValue(entry)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
