@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.selects.select
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,7 +45,7 @@ data class TimesheetEntry(
 //------------------------------------------------------------------------------------------------\\
 class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
-    var selectedCategory: String? = null
+    var selectedCategory: String = "Work"
     val categoryNames = listOf("Work", "Study", "Exercise")
     private lateinit var dateButton: Button
     private lateinit var datePicker: MaterialDatePicker<Long>
@@ -146,7 +147,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
             val startTime = findViewById<EditText>(R.id.startTimeEditText).text.toString()
             val endTime = findViewById<EditText>(R.id.endTimeEditText).text.toString()
             val description = findViewById<EditText>(R.id.descriptionEditText).text.toString()
-            val category = Category("Work")
+            val category = Category(selectedCategory)
 
 
 
