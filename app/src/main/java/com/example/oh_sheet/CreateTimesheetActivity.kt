@@ -148,7 +148,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
                     entry.userId = userId
                     timesheetEntries.add(entry)
 
-                    database.child("timesheet").child(entryKey).setValue(entry)
+                    database.child("timesheets").child(entryKey).setValue(entry)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 // Entry saved successfully
