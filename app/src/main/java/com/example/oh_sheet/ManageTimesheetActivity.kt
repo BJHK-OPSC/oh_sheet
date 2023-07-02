@@ -21,7 +21,6 @@ import com.example.oh_sheet.CreateTimesheetActivity
 class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
 
-
     //--------------------------------------------------------------------------\\
     //var textSearchView1 = findViewById<TextView>(R.id.searchDate1)
     //var textSearchView2 = findViewById<TextView>(R.id.searchDate2)
@@ -68,11 +67,11 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         val data = ArrayList<TableRowC>()
 
         //im assuming these become the column headings
-        data.add(TableRowC("Description", "Start Date","Start Time", "End Time", "Categories"))
+        data.add(TableRowC("Description", "Start Date", "Start Time", "End Time", "Categories"))
 
         val line: String = "------------"
         //create line
-        data.add(TableRowC(line, line,line, line, line))
+        data.add(TableRowC(line, line, line, line, line))
 
         val array: ArrayList<TimesheetEntry> = ArrayList()
 
@@ -81,8 +80,8 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         //put Daniel H data into the values in " ... "
 
         //iterates thru arraylist and adds the data to my own arraylist
-        if(!array.indices.isEmpty()){
-            for(i in array.indices){
+        if (!array.indices.isEmpty()) {
+            for (i in array.indices) {
 
                 val val1: String = array.get(i).category.name.toString()// category
                 val val2: String = array.get(i).date.toString() //date
@@ -91,7 +90,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
                 val val5: String = array.get(i).startTime.toString() //start time
                 val val6: String = array.get(i).photoPath.toString() //photo
 
-                data.add(TableRowC(val3, val2, val5,val4, val1))
+                data.add(TableRowC(val3, val2, val5, val4, val1))
             }
         }
 
@@ -194,5 +193,6 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         return data2
     }*/
+
 }
 //------------------------------------------End of File------------------------------------------------------\\

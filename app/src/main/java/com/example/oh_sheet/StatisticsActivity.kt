@@ -43,6 +43,7 @@ class StatisticsActivity : AppCompatActivity() {
         populateRecycleView()
     }
 
+
     private fun populateRecycleView(){
         //Extract unique categories
         val uniqueCategories = HashSet<String>()
