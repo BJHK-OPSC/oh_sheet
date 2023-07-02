@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.graphics.Color
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.animation.Easing
@@ -27,9 +32,16 @@ class GraphActivity : AppCompatActivity() {
 
     private lateinit var mi: String
     private lateinit var ma: String
+
+    private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graph)
+
+        database = FirebaseDatabase.getInstance().reference
+        auth = FirebaseAuth.getInstance()
 
         lineChart = findViewById(R.id.lineChart)
 
@@ -106,15 +118,19 @@ class GraphActivity : AppCompatActivity() {
         val array: ArrayList<TimesheetEntry> = ArrayList()
         val GoalsArray: ArrayList<Goals> = ArrayList()
 
+        val currentUser: FirebaseUser? = auth.currentUser
+        val userId: String? = currentUser?.uid
+
+
         //test
         val category = Category("Work")
-        array.add(TimesheetEntry("2023-03-03", "15:00","18:00", "Value 4", category))
-        array.add(TimesheetEntry("2023-03-04", "13:00","18:00", "Value 4", category))
-        array.add(TimesheetEntry("2023-03-05", "12:00","18:00", "Value 4", category))
-        array.add(TimesheetEntry("2023-03-06", "11:00","18:00", "Value 4", category))
-        array.add(TimesheetEntry("2023-03-07", "16:00","18:00", "Value 4", category))
-        array.add(TimesheetEntry("2023-03-08", "15:00","18:00", "Value 4", category))
-        array.add(TimesheetEntry("2023-03-09", "17:00","18:00", "Value 4", category))
+        array.add(TimesheetEntry("2023-03-03", "15:00","18:00", "Value 4", category, "", ""))
+        array.add(TimesheetEntry("2023-03-04", "13:00","18:00", "Value 4", category,"", ""))
+        array.add(TimesheetEntry("2023-03-05", "12:00","18:00", "Value 4", category,"", ""))
+        array.add(TimesheetEntry("2023-03-06", "11:00","18:00", "Value 4", category,"", ""))
+        array.add(TimesheetEntry("2023-03-07", "16:00","18:00", "Value 4", category,"", ""))
+        array.add(TimesheetEntry("2023-03-08", "15:00","18:00", "Value 4", category,"", ""))
+        array.add(TimesheetEntry("2023-03-09", "17:00","18:00", "Value 4", category,"", ""))
 
         if(!GoalsArray.indices.isEmpty()){
             mi = GoalsArray.get(0).min.toString()
@@ -216,5 +232,9 @@ class GraphActivity : AppCompatActivity() {
             }
             return ""
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
