@@ -14,6 +14,9 @@ import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 import kotlin.collections.ArrayList
 
@@ -79,6 +82,7 @@ class GraphActivity : AppCompatActivity() {
         //for 2nd and 3rd
 
 
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val array: ArrayList<TimesheetEntry> = ArrayList()
 
         //test
@@ -99,12 +103,25 @@ class GraphActivity : AppCompatActivity() {
 
                 val val1: String = array.get(i).category.name.toString()// category
                 val val2: String = array.get(i).date.toString() //date
-                val val3: String = array.get(i).endTime
+                val end: String = array.get(i).endTime.toString()
+                val start: String = array.get(i).startTime.toString()
+
+                //val startTimeString = "${array.startTime}"
+                //val endTimeString = "${array.endTime}"
+
+                val startTime = dateFormat.parse(start)
+                val endTime = dateFormat.parse(end)
+
+                // Calculate the time difference in milliseconds
+                val timeDifference = endTime.time - startTime.time
+
+                // Convert milliseconds to minutes (or any other desired unit)
+                val timeSpentMinutes = TimeUnit.MILLISECONDS.toHours(timeDifference).toInt()
 
                 val entry = array[i]
 
                 //replace val2 with hours
-                hours.add(Entry(i.toFloat(),val3.toFloat() ))
+                hours.add(Entry(i.toFloat(),timeSpentMinutes.toFloat() ))
 
                 labels.add(val2)
 
