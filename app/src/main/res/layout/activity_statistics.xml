@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/white"
-            android:tint="@color/purple_200"
+            app:tint="@color/purple_200"
             app:srcCompat="?attr/actionModeCloseDrawable" />
 
         <TextView

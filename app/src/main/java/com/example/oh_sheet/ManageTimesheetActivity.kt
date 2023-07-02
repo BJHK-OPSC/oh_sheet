@@ -19,9 +19,6 @@ import kotlin.collections.ArrayList
 import com.example.oh_sheet.CreateTimesheetActivity
 
 class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
-
-
-
     //--------------------------------------------------------------------------\\
     //var textSearchView1 = findViewById<TextView>(R.id.searchDate1)
     //var textSearchView2 = findViewById<TextView>(R.id.searchDate2)
@@ -29,9 +26,6 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
     //val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     //var selectedDate1: Date? = null
     //var selectedDate2: Date? = null
-
-    //--------------------------------------------------------------------------\\
-    //val obj: CreateTimesheetActivity = CreateTimesheetActivity()
 
     //--------------------------------------------------------------------------\\
     private lateinit var recyclerView: RecyclerView
@@ -68,7 +62,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         val data = ArrayList<TableRowC>()
 
         //im assuming these become the column headings
-        data.add(TableRowC("Description", "Start Date","Start Time", "End Time", "Categories"))
+        data.add(TableRowC("Descript.", "Date","Start Time", "End Time", "Categ."))
 
         val line: String = "------------"
         //create line

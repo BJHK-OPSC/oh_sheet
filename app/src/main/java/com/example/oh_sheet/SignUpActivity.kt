@@ -56,7 +56,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     @IgnoreExtraProperties
-    data class User(val username: String? = null, val email: String? = null){
+    data class User(val email: String? = null, val password: String? = null){
         // Null default values create a no-argument default constructor, which is needed
         // for deserialization from a DataSnapshot.
     }
@@ -135,7 +135,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun createAccount(email: String, password: String) {
         val hashedPassword = hashPassword(password)
 
-        if (isValidRegistration(email, password) == RegistrationValidationResult.SUCCESS) {
+        if (isValidRegistration(email, hashedPassword) == RegistrationValidationResult.SUCCESS) {
             // [START create_user_with_email]
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->

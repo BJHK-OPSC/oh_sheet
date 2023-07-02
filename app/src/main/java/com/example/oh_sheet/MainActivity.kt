@@ -18,6 +18,13 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+        val timerButton: Button = findViewById(R.id.timerBtn)
+        timerButton.setOnClickListener {
+            val intent = Intent(this, TimerActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         val manageTimesheetButton: Button = findViewById(R.id.manageTimesheet_button)
         manageTimesheetButton.setOnClickListener {
             val intent = Intent(this, ManageTimesheetActivity::class.java)
