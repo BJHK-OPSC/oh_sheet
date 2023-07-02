@@ -15,6 +15,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 data class Category(val name: String)
@@ -35,6 +40,9 @@ class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
     var selectedCategory: String? = null
     val categoryNames = listOf("Work", "Study", "Exercise")
+    private lateinit var datePicker: MaterialDatePicker<Long>
+    private lateinit var dateButton: Button
+    private lateinit var dateEditText: TextInputEditText
 
     lateinit var notificationManager: NotificationManager
     lateinit var notificationChannel: NotificationChannel
@@ -46,7 +54,9 @@ class CreateTimesheetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_timesheet)
 
-
+        dateEditText = findViewById(R.id.dateEditText)
+        dateButton = findViewById(R.id.dateButton)
+        setupDatePickers()
 
         val addPhotoButton = findViewById<Button>(R.id.addPhotoButton)
         val createEntryButton = findViewById<Button>(R.id.createEntryButton)
@@ -158,6 +168,33 @@ class CreateTimesheetActivity : AppCompatActivity() {
                 .setSmallIcon(R.drawable.ohsheet_pic)
         }
 
+    }
+
+    fun showStartDatePickerDialog(view: View) {
+        datePicker.show(supportFragmentManager, "datePicker")
+    }
+
+    private fun formatDate(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return format.format(date)
+    }
+
+    private fun setupDatePickers() {
+        datePicker = createDatePicker { timestamp ->
+            val selectedDate = Date(timestamp)
+            dateEditText.setText(formatDate(selectedDate))
+        }
+    }
+
+    private fun createDatePicker(onDateSelected: (Long) -> Unit): MaterialDatePicker<Long> {
+        val builder = MaterialDatePicker.Builder.datePicker()
+        val picker = builder.build()
+
+        picker.addOnPositiveButtonClickListener { timestamp ->
+            onDateSelected(timestamp)
+        }
+
+        return picker
     }
 }
 
