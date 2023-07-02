@@ -1,13 +1,16 @@
 package com.example.oh_sheet
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
-class SetGoals : AppCompatActivity(), View.OnClickListener {
+class SetGoalsActivity : AppCompatActivity(), View.OnClickListener {
 
     //finding ids for the textviews
     var textView1 = findViewById<TextView>(R.id.txtGoalName)
@@ -15,13 +18,21 @@ class SetGoals : AppCompatActivity(), View.OnClickListener {
     var textView3 = findViewById<TextView>(R.id.txtMaxGoal)
 
     //------------------------------------------------------------------------------------------------\\
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_goals)
+
+        /*val setGoalsButton: Button = findViewById(R.id.buttonNewGoal)
+        setGoalsButton.setOnClickListener {
+            val intent = Intent(this, SetGoalsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }*/
     }
 
     //------------------------------------------------------------------------------------------------\\
-    //click event for the save button
+    //click event for the save timerBtn
     override fun onClick(view: View) {
         val intent = Intent(this, SetGoalsAcitivity2 :: class.java)
         startActivityForResult(intent, 1)

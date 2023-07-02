@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -64,10 +64,11 @@
                 app:boxBackgroundColor="@color/purple_200">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailEditTextIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:hint="@string/username_label"
+                    android:hint="@string/Email_prompt"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -86,9 +87,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
+                android:hint="Password"
                 android:inputType="textPassword"
                 android:shadowColor="@color/purple_200"
-                android:text="@string/password_input_label"
+                android:text=""
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -116,7 +118,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/loginButton"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

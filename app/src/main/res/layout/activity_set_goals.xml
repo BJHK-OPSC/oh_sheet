@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SetGoals">
+    tools:context=".SetGoalsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton6"
+            android:id="@+id/backButtonGoals"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -22,12 +22,16 @@
             app:srcCompat="?attr/actionModeCloseDrawable"
             android:onClick="onClick"/>
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@drawable/wireframe__community___1_" />
+            android:text="@string/goals"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="60sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView7"
@@ -50,7 +54,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonNewGoal"
             android:layout_width="180dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"

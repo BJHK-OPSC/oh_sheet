@@ -3,8 +3,10 @@ package com.example.oh_sheet
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,19 +20,21 @@ import com.example.oh_sheet.CreateTimesheetActivity
 
 class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
+
+
+    //--------------------------------------------------------------------------\\
+    //var textSearchView1 = findViewById<TextView>(R.id.searchDate1)
+    //var textSearchView2 = findViewById<TextView>(R.id.searchDate2)
+
+    //val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    //var selectedDate1: Date? = null
+    //var selectedDate2: Date? = null
+
+    //--------------------------------------------------------------------------\\
+    //val obj: CreateTimesheetActivity = CreateTimesheetActivity()
+
     //--------------------------------------------------------------------------\\
     private lateinit var recyclerView: RecyclerView
-
-    //--------------------------------------------------------------------------\\
-    var textSearchView1 = findViewById<TextView>(R.id.searchDate1)
-    var textSearchView2 = findViewById<TextView>(R.id.searchDate2)
-
-    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-    var selectedDate1: Date? = null
-    var selectedDate2: Date? = null
-
-    //--------------------------------------------------------------------------\\
-    val obj: CreateTimesheetActivity = CreateTimesheetActivity()
 
     //------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +43,13 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         recyclerView = findViewById(R.id.recyclerView)
         setupRecyclerView()
+
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     //------------------------------------------------------------------------------------------------\\
@@ -59,12 +70,13 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         //im assuming these become the column headings
         data.add(TableRowC("Description", "Start Date","Start Time", "End Time", "Categories"))
 
-        //these are the values that populate the table
-        data.add(TableRowC("Value 1", "Value 2","Value 3", "Value 4", "value 5"))
+        val line: String = "------------"
+        //create line
+        data.add(TableRowC(line, line,line, line, line))
 
-        val array: ArrayList<CreateTimesheetActivity.TimesheetEntry> = ArrayList()
+        val array: ArrayList<TimesheetEntry> = ArrayList()
 
-        array.addAll(obj.timesheetEntries)
+        array.addAll(timesheetEntries)
 
         //put Daniel H data into the values in " ... "
 
@@ -72,7 +84,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         if(!array.indices.isEmpty()){
             for(i in array.indices){
 
-                val val1: String = array.get(i).category.toString()// category
+                val val1: String = array.get(i).category.name.toString()// category
                 val val2: String = array.get(i).date.toString() //date
                 val val3: String = array.get(i).description.toString() //description
                 val val4: String = array.get(i).endTime.toString() //end time

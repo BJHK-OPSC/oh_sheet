@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 
 class SetGoalsAcitivity2 : AppCompatActivity(), View.OnClickListener {
@@ -17,7 +18,8 @@ class SetGoalsAcitivity2 : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_goals_acitivity2)
 
-        val intent = Intent(this, SetGoals :: class.java)
+        val intent = Intent(this, SetGoalsActivity :: class.java)
+
     }
 
     //------------------------------------------------------------------------------------------------\\

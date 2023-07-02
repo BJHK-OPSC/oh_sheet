@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButton7"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -86,7 +86,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonNewGoal"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="bottom|left"
@@ -120,16 +120,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </ScrollView>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
