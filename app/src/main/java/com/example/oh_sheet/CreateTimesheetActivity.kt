@@ -183,17 +183,15 @@ class CreateTimesheetActivity : AppCompatActivity() {
 
             clearInputFields()
 
-
-            val backButton: ImageButton = findViewById(R.id.backButton)
-            backButton.setOnClickListener()
-            {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
         }
 
-
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener()
+        {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun ImageButton.setOnClickListener() {
