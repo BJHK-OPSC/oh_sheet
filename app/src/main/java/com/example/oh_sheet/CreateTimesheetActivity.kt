@@ -1,7 +1,6 @@
 package com.example.oh_sheet
 
 import android.app.Activity
-import com.example.oh_sheet.CreateTimesheetActivity2
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -12,8 +11,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.oh_sheet.databinding.ActivityCreateTimesheet2Binding
-import com.example.oh_sheet.databinding.ActivityCreateTimesheetBinding
+
 
 
 data class Category(val name: String)
@@ -26,7 +24,7 @@ data class TimesheetEntry(
     val startTime: String,
     val endTime: String,
     val description: String,
-    val category: Category,
+    val category: Category?,
     var photoPath: String? = ""
 )
 //------------------------------------------------------------------------------------------------\\
