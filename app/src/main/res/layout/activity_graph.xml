@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GraphActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            app:srcCompat="?attr/actionModeCloseDrawable"
+            app:tint="@color/purple_200" />
+
+        <TextView
+            android:id="@+id/graph_label"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Graphs"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="48sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/plain_white_background"
+            app:tint="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Date Range"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Date: "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/startDateEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Select start date"
+                android:inputType="date" />
+
+            <Button
+                android:id="@+id/startDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="showStartDatePickerDialog"
+                android:text="Select" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End Date: "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/endDateEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Select end date"
+                android:inputType="date" />
+
+            <Button
+                android:id="@+id/endDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="showEndDatePickerDialog"
+                android:text="Select" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

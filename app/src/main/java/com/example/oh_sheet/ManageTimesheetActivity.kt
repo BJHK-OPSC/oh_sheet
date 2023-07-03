@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +36,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_timesheet)
 
-        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerViewTable)
         setupRecyclerView()
 
         val backButton: ImageButton = findViewById(R.id.backButton)
@@ -83,7 +84,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
                 val val3: String = array.get(i).description.toString() //description
                 val val4: String = array.get(i).endTime.toString() //end time
                 val val5: String = array.get(i).startTime.toString() //start time
-                val val6: String = array.get(i).photoPath.toString() //photo
+
 
                 data.add(TableRowC(val3, val2, val5,val4, val1))
             }
@@ -91,6 +92,10 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         //returns the populated array back to recyclerViewMethod
         return data
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     //------------------------------------------------------------------------------------------------\\
