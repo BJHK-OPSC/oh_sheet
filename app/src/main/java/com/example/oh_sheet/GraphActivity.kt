@@ -1,9 +1,11 @@
 package com.example.oh_sheet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.graphics.Color
+import android.widget.ImageButton
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -61,6 +63,13 @@ class GraphActivity : AppCompatActivity() {
             Log.d("status","not empty")
         }else{
             Log.d("fail3","failure3")
+        }
+
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
