@@ -2,11 +2,9 @@ package com.example.oh_sheet
 
 
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -19,11 +17,6 @@ import java.util.Locale
 import java.util.Date
 import kotlin.collections.ArrayList
 import com.example.oh_sheet.CreateTimesheetActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
     //--------------------------------------------------------------------------\\
@@ -43,38 +36,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_manage_timesheet)
 
         recyclerView = findViewById(R.id.recyclerView)
-
-        // Retrieve current user ID
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val currentUserId = currentUser?.uid
-
-        // Query Firebase and populate timesheetEntries
-        val timesheetRef = FirebaseDatabase.getInstance().getReference("timesheets")
-
-        timesheetRef.orderByChild("userId").equalTo(currentUserId).addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // Clear existing entries
-                timesheetEntries.clear()
-
-                for (entrySnapshot in dataSnapshot.children) {
-                    val entry = entrySnapshot.getValue(TimesheetEntry::class.java)
-                    entry?.let {
-                        timesheetEntries.add(entry)
-                    }
-                }
-
-                setupRecyclerView()
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle the error case
-                Log.e(ContentValues.TAG, "Error retrieving timesheet entries: ${databaseError.message}")
-            }
-        })
-
-
-
+        setupRecyclerView()
 
         val backButton: ImageButton = findViewById(R.id.backButton)
         backButton.setOnClickListener {

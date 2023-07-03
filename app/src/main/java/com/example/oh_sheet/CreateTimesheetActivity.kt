@@ -27,11 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-data class Category(
-    val name: String
-) {
-    constructor() : this("")
-}
+data class Category(val name: String)
 //list of timesheet entries\\
 //should be accessible from anywhere\\
 val timesheetEntries: ArrayList<TimesheetEntry> = ArrayList()
@@ -43,10 +39,9 @@ data class TimesheetEntry(
     val description: String,
     val category: Category,
     var photoPath: String? = "",
-    var userId: String
-) {
-    constructor() : this("", "", "", "", Category(""), "", "")
-}
+    var userId: String,
+
+)
 //------------------------------------------------------------------------------------------------\\
 class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
