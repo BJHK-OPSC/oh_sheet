@@ -50,7 +50,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val dataArray: ArrayList<TimesheetEntry> = ArrayList()
+                //val dataArray: ArrayList<TimesheetEntry> = ArrayList()
 
                 for (snapshot in dataSnapshot.children) {
                     val timesheetEntry: TimesheetEntry? =
@@ -58,12 +58,12 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
                     // Check if the timesheet entry belongs to the current user
                     if (timesheetEntry != null && timesheetEntry.userId == currentUserId) {
-                        dataArray.add(timesheetEntry)
+                        timesheetEntries.add(timesheetEntry)
                     }
                 }
 
                 // Do something with the dataArray, containing timesheet entries of the current user
-                setupRecyclerView(dataArray)
+                setupRecyclerView(timesheetEntries)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
