@@ -19,7 +19,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.util.Calendar;
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.Date;
 
 class TimerActivity : AppCompatActivity() {
@@ -41,6 +42,7 @@ class TimerActivity : AppCompatActivity() {
 
     private var isTimerRunning = false
     private var elapsedMillis: Long = 0
+    private var startTime: LocalTime = LocalTime.MIN
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,6 +118,7 @@ class TimerActivity : AppCompatActivity() {
 
 
     private fun toggleTimer() {
+        val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
         sendNotification()
 
         if (isTimerRunning) {
@@ -125,8 +128,8 @@ class TimerActivity : AppCompatActivity() {
             isTimerRunning = false
             notificationManager.cancel(1)
 
-            // Set the end time
-            val endTime = System.currentTimeMillis()
+            // Set the end time as the current time
+            val endTime = LocalTime.now()
 
             // Database Timesheet entry
             val currentUser: FirebaseUser? = auth.currentUser
@@ -138,8 +141,8 @@ class TimerActivity : AppCompatActivity() {
                     // Create a TimesheetEntry object with start and end times
                     val entry = TimesheetEntry(
                         date = getCurrentDate(),
-                        startTime = getFormattedTime(timer.base),
-                        endTime = getFormattedTime(endTime),
+                        startTime = startTime.format(formatter),
+                        endTime = endTime.format(formatter),
                         description = findViewById<EditText>(R.id.entry_name_edit_text).text.toString(),
                         category = Category(selectedCategory),
                         photoPath = "",
@@ -179,6 +182,9 @@ class TimerActivity : AppCompatActivity() {
             timer.start()
             isTimerRunning = true
 
+            // Set the start time as the current time
+            startTime = LocalTime.now()
+
             notificationManager.notify(1, builder.build())
 
             // Update toggle button text and background
@@ -196,8 +202,4 @@ class TimerActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun getFormattedTime(time: Long): String {
-        val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        return dateFormat.format(Date(time))
-    }
 }

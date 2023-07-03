@@ -1,22 +1,22 @@
 package com.example.oh_sheet
 
-import android.content.Context
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
-import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
@@ -34,13 +34,42 @@ class StatisticsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistics)
 
+        // Retrieve current user ID
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUserId = currentUser?.uid
+
+        // Query Firebase and populate timesheetEntries
+        val timesheetRef = FirebaseDatabase.getInstance().getReference("timesheets")
+
+        timesheetRef.orderByChild("userId").equalTo(currentUserId).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Clear existing entries
+                timesheetEntries.clear()
+
+                for (entrySnapshot in dataSnapshot.children) {
+                    val entry = entrySnapshot.getValue(TimesheetEntry::class.java)
+                    entry?.let {
+                        timesheetEntries.add(entry)
+                    }
+                }
+
+                // Call your populateRecycleView function here to update the RecyclerView with the retrieved data
+                populateRecycleView()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle the error case
+                Log.e(TAG, "Error retrieving timesheet entries: ${databaseError.message}")
+            }
+        })
+
         startDateEditText = findViewById(R.id.startDateEditText)
         endDateEditText = findViewById(R.id.endDateEditText)
         startDateButton = findViewById(R.id.startDateButton)
         endDateButton = findViewById(R.id.endDateButton)
 
         setupDatePickers()
-        populateRecycleView()
     }
 
     private fun populateRecycleView(){
