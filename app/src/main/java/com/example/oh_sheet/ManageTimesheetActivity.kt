@@ -18,6 +18,9 @@ import java.util.Locale
 import java.util.Date
 import kotlin.collections.ArrayList
 import com.example.oh_sheet.CreateTimesheetActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+
 
 class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
     //--------------------------------------------------------------------------\\
@@ -32,6 +35,11 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var recyclerView: RecyclerView
 
     //------------------------------------------------------------------------------------------------\\
+
+    // Declare the Firebase Database reference
+    private val databaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("timesheets")
+
+    //--------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_timesheet)
@@ -39,12 +47,41 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         recyclerView = findViewById(R.id.recyclerViewTable)
         setupRecyclerView()
 
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUserId = currentUser?.uid
+
+
+        databaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataArray: ArrayList<TimesheetEntry> = ArrayList()
+
+                for (snapshot in dataSnapshot.children) {
+                    val timesheetEntry: TimesheetEntry? =
+                        snapshot.getValue(TimesheetEntry::class.java)
+
+                    // Check if the timesheet entry belongs to the current user
+                    if (timesheetEntry != null && timesheetEntry.userId == currentUserId) {
+                        dataArray.add(timesheetEntry)
+                    }
+                }
+
+                // Do something with the dataArray, containing timesheet entries of the current user
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle error
+            }
+        })
+
+
         val backButton: ImageButton = findViewById(R.id.backButton)
         backButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
+
     }
 
     //------------------------------------------------------------------------------------------------\\
@@ -193,5 +230,20 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         return data2
     }*/
+    //------------------------------------------------------------------------------------------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
 //------------------------------------------End of File------------------------------------------------------\\
