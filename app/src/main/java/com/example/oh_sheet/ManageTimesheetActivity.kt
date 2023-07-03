@@ -2,23 +2,18 @@ package com.example.oh_sheet
 
 
 
-import android.content.Context
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.Date
-import kotlin.collections.ArrayList
-import com.example.oh_sheet.CreateTimesheetActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
@@ -38,18 +33,19 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
     // Declare the Firebase Database reference
     private val databaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("timesheets")
+    private lateinit var auth: FirebaseAuth
 
     //--------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_timesheet)
 
-        recyclerView = findViewById(R.id.recyclerViewTable)
-        setupRecyclerView()
+        auth = FirebaseAuth.getInstance()
 
-
-        val currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUser: FirebaseUser? = auth.currentUser
         val currentUserId = currentUser?.uid
+        Log.d("ManageTimesheetActivity", "Current User ID: $currentUserId")
+        recyclerView = findViewById(R.id.recyclerViewTable)
 
 
         databaseRef.addValueEventListener(object : ValueEventListener {
@@ -67,12 +63,15 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 // Do something with the dataArray, containing timesheet entries of the current user
+                setupRecyclerView(dataArray)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle error
             }
         })
+
+
 
 
         val backButton: ImageButton = findViewById(R.id.backButton)
@@ -84,9 +83,10 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+
     //------------------------------------------------------------------------------------------------\\
-    private fun setupRecyclerView() {
-        val data = createSampleData()
+    private fun setupRecyclerView(dataArray: ArrayList<TimesheetEntry>) {
+        val data = createSampleData(dataArray)
         val adapter = TableAdapter(data)
 
         recyclerView.adapter = adapter
@@ -95,39 +95,30 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //------------------------------------------------------------------------------------------------\\
-    private fun createSampleData(): ArrayList<TableRowC> {
-
+    private fun createSampleData(dataArray: ArrayList<TimesheetEntry>): ArrayList<TableRowC> {
         val data = ArrayList<TableRowC>()
 
-        //im assuming these become the column headings
-        data.add(TableRowC("Descript.", "Date","Start Time", "End Time", "Categ."))
+        // Assuming these become the column headings
+        data.add(TableRowC("Descript.", "Date", "Start Time", "End Time", "Categ."))
 
         val line: String = "------------"
-        //create line
-        data.add(TableRowC(line, line,line, line, line))
+        // Create line
+        data.add(TableRowC(line, line, line, line, line))
 
-        val array: ArrayList<TimesheetEntry> = ArrayList()
+        // Iterate through dataArray and add the data to the ArrayList
+        if (!dataArray.isEmpty()) {
+            for (entry in dataArray) {
+                val val1: String = entry.category.name.toString() // category
+                val val2: String = entry.date.toString() // date
+                val val3: String = entry.description.toString() // description
+                val val4: String = entry.endTime.toString() // end time
+                val val5: String = entry.startTime.toString() // start time
 
-        array.addAll(timesheetEntries)
-
-        //put Daniel H data into the values in " ... "
-
-        //iterates thru arraylist and adds the data to my own arraylist
-        if(!array.indices.isEmpty()){
-            for(i in array.indices){
-
-                val val1: String = array.get(i).category.name.toString()// category
-                val val2: String = array.get(i).date.toString() //date
-                val val3: String = array.get(i).description.toString() //description
-                val val4: String = array.get(i).endTime.toString() //end time
-                val val5: String = array.get(i).startTime.toString() //start time
-
-
-                data.add(TableRowC(val3, val2, val5,val4, val1))
+                data.add(TableRowC(val3, val2, val5, val4, val1))
             }
         }
 
-        //returns the populated array back to recyclerViewMethod
+        // Return the populated ArrayList back to setupRecyclerView()
         return data
     }
 

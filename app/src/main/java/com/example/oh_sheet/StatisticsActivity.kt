@@ -39,6 +39,7 @@ class StatisticsActivity : AppCompatActivity() {
         startDateButton = findViewById(R.id.startDateButton)
         endDateButton = findViewById(R.id.endDateButton)
 
+
         setupDatePickers()
         populateRecycleView()
     }
