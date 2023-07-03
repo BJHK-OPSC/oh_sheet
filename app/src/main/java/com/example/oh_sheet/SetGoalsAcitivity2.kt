@@ -23,6 +23,13 @@ class SetGoalsAcitivity2 : AppCompatActivity(), View.OnClickListener {
 
         val intent = Intent(this, SetGoalsActivity :: class.java)
 
+        val backButton: ImageButton = findViewById(R.id.bbGoals)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     //------------------------------------------------------------------------------------------------\\
