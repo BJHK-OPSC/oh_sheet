@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
@@ -27,10 +28,14 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-data class Category(val name: String)
+data class Category(
+    val name: String,
+) {
+    constructor() : this("")
+}
 //list of timesheet entries\\
 //should be accessible from anywhere\\
-val timesheetEntries: ArrayList<TimesheetEntry> = ArrayList()
+var timesheetEntries: ArrayList<TimesheetEntry> = ArrayList()
 
 data class TimesheetEntry(
     val date: String,
@@ -39,9 +44,10 @@ data class TimesheetEntry(
     val description: String,
     val category: Category,
     var photoPath: String? = "",
-    var userId: String,
-
-)
+    var userId: String
+) {
+    constructor() : this("", "", "", "", Category(""), "", "")
+}
 //------------------------------------------------------------------------------------------------\\
 class CreateTimesheetActivity : AppCompatActivity() {
     private lateinit var photoLauncher: ActivityResultLauncher<Intent>
@@ -154,6 +160,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
             //Database Timesheet entry
             val currentUser: FirebaseUser? = auth.currentUser
             val userId: String? = currentUser?.uid
+            Log.d("CreateTeimesheetActivity", "Current User ID: $userId")
 
             if (userId != null) {
                 val entryKey = database.child("timesheets").push().key
@@ -161,6 +168,7 @@ class CreateTimesheetActivity : AppCompatActivity() {
                     val entry = TimesheetEntry(date, startTime, endTime, description, category, photoPath = "",userId)
                     entry.userId = userId
                     timesheetEntries.add(entry)
+
 
                     database.child("timesheets").child(entryKey).setValue(entry)
                         .addOnCompleteListener { task ->
