@@ -9,16 +9,26 @@ import android.widget.TextView
 
 class SetGoalsAcitivity2 : AppCompatActivity(), View.OnClickListener {
 
-    val textViewGoal: TextView = findViewById(R.id.txtGoalName) as TextView
-    val textViewMin: TextView = findViewById(R.id.txtGoalName) as TextView
-    val textViewMax: TextView = findViewById(R.id.txtGoalName) as TextView
-
+    private lateinit var textViewGoal: TextView
+    private lateinit var textViewMin: TextView
+    private lateinit var textViewMax: TextView
     //------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_goals_acitivity2)
 
+        textViewGoal = findViewById(R.id.txtGoalName) as TextView
+        textViewMin = findViewById(R.id.txtGoalName) as TextView
+        textViewMax = findViewById(R.id.txtGoalName) as TextView
+
         val intent = Intent(this, SetGoalsActivity :: class.java)
+
+        val backButton: ImageButton = findViewById(R.id.bbGoals)
+        backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,11 +18,11 @@ import java.util.Locale
 import java.util.Date
 import kotlin.collections.ArrayList
 import com.example.oh_sheet.CreateTimesheetActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+
 
 class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
-
-
-
     //--------------------------------------------------------------------------\\
     //var textSearchView1 = findViewById<TextView>(R.id.searchDate1)
     //var textSearchView2 = findViewById<TextView>(R.id.searchDate2)
@@ -31,18 +32,48 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
     //var selectedDate2: Date? = null
 
     //--------------------------------------------------------------------------\\
-    //val obj: CreateTimesheetActivity = CreateTimesheetActivity()
-
-    //--------------------------------------------------------------------------\\
     private lateinit var recyclerView: RecyclerView
 
     //------------------------------------------------------------------------------------------------\\
+
+    // Declare the Firebase Database reference
+    private val databaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("timesheets")
+
+    //--------------------------------------------------------------------------------------------------\\
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_timesheet)
 
-        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerViewTable)
         setupRecyclerView()
+
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUserId = currentUser?.uid
+
+
+        databaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dataArray: ArrayList<TimesheetEntry> = ArrayList()
+
+                for (snapshot in dataSnapshot.children) {
+                    val timesheetEntry: TimesheetEntry? =
+                        snapshot.getValue(TimesheetEntry::class.java)
+
+                    // Check if the timesheet entry belongs to the current user
+                    if (timesheetEntry != null && timesheetEntry.userId == currentUserId) {
+                        dataArray.add(timesheetEntry)
+                    }
+                }
+
+                // Do something with the dataArray, containing timesheet entries of the current user
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle error
+            }
+        })
+
 
         val backButton: ImageButton = findViewById(R.id.backButton)
         backButton.setOnClickListener {
@@ -50,6 +81,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
             finish()
         }
+
     }
 
     //------------------------------------------------------------------------------------------------\\
@@ -68,7 +100,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
         val data = ArrayList<TableRowC>()
 
         //im assuming these become the column headings
-        data.add(TableRowC("Description", "Start Date","Start Time", "End Time", "Categories"))
+        data.add(TableRowC("Descript.", "Date","Start Time", "End Time", "Categ."))
 
         val line: String = "------------"
         //create line
@@ -89,7 +121,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
                 val val3: String = array.get(i).description.toString() //description
                 val val4: String = array.get(i).endTime.toString() //end time
                 val val5: String = array.get(i).startTime.toString() //start time
-                val val6: String = array.get(i).photoPath.toString() //photo
+
 
                 data.add(TableRowC(val3, val2, val5,val4, val1))
             }
@@ -97,6 +129,10 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         //returns the populated array back to recyclerViewMethod
         return data
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     //------------------------------------------------------------------------------------------------\\
@@ -194,5 +230,20 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
 
         return data2
     }*/
+    //------------------------------------------------------------------------------------------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
 //------------------------------------------End of File------------------------------------------------------\\

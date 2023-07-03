@@ -55,11 +55,12 @@
 
         <Button
             android:id="@+id/buttonNewGoal"
-            android:layout_width="180dp"
+            android:layout_width="210dp"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:layout_marginLeft="25dp"
+            android:layout_gravity="center_horizontal"
             android:drawableLeft="@android:drawable/ic_menu_add"
+            android:gravity="center_horizontal|center_vertical"
+            android:paddingRight="16dp"
             android:text="@string/new_goal_label"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -120,16 +121,4 @@
         android:layout_height="40dp"
         android:orientation="vertical"></LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="180dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:text="@string/time_comin_soon_label" />
-    </LinearLayout>
 </LinearLayout>

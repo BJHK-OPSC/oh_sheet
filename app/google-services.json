@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "932358947864",
+    "project_id": "oh-sheet-poe1",
+    "storage_bucket": "oh-sheet-poe1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932358947864:android:c89d375ec2ad9721e0ef6d",
+        "android_client_info": {
+          "package_name": "com.example.oh_sheet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932358947864-1i6gckqljhqppakqjgq0e0cb5051jaf6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0ASmkQQbIpNWcdBJBFCWtJ7w-JmvwH5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932358947864-1i6gckqljhqppakqjgq0e0cb5051jaf6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

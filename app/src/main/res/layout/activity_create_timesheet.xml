@@ -18,7 +18,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@color/white"
-            android:tint="@color/purple_500"
+            app:tint="@color/purple_500"
             app:srcCompat="?attr/actionModeCloseDrawable" />
 
         <ImageView
@@ -89,7 +89,7 @@
                 <Spinner
                     android:id="@+id/categorySpinner"
                     android:layout_width="250dp"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center" />
 
             </LinearLayout>
@@ -101,21 +101,27 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/dateEditText"
-                    android:layout_width="210dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:clickable="false"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:hint="@string/date_label"
-                    android:textColor="@color/purple_200"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="Select Date"
+                    android:inputType="date" />
+
+                <Button
+                    android:id="@+id/dateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="showDatePickerDialog"
+                    android:text="Select" />
+
             </LinearLayout>
 
             <LinearLayout
