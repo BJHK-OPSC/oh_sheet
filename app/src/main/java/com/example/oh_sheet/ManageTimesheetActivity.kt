@@ -83,7 +83,7 @@ class ManageTimesheetActivity : AppCompatActivity(), View.OnClickListener {
                 val val3: String = array.get(i).description.toString() //description
                 val val4: String = array.get(i).endTime.toString() //end time
                 val val5: String = array.get(i).startTime.toString() //start time
-                val val6: String = array.get(i).photoPath.toString() //photo
+
 
                 data.add(TableRowC(val3, val2, val5,val4, val1))
             }

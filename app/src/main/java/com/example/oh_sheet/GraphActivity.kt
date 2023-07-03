@@ -164,7 +164,7 @@ class GraphActivity : AppCompatActivity() {
                 // Convert milliseconds to minutes (or any other desired unit)
                 val timeSpentMinutes = TimeUnit.MILLISECONDS.toHours(timeDifference).toInt()
 
-                val entry = array[i]
+                val entryArr = array[i]
 
                 //replace val2 with hours
                 hours.add(Entry(i.toFloat(),timeSpentMinutes.toFloat() ))
